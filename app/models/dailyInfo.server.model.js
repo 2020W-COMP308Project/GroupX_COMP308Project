@@ -2,25 +2,25 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const DailyInfoSchema = new Schema({
-  pulseRate: double,
-  bloodPressure: double,
-  weight: double,
-  temperature: double,
-  respiratoryRate: double,
+  pulseRate: Number,
+  bloodPressure: Number,
+  weight: Number,
+  temperature: Number,
+  respiratoryRate: Number,
   lastModified: Date,
   owner: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
   created: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 DailyInfoSchema.set("toJSON", {
   getters: true,
-  virtuals: true
+  virtuals: true,
 });
 
 mongoose.model("DailyInfo", DailyInfoSchema);
