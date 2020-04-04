@@ -60,3 +60,30 @@ exports.isSignedIn = (req, res) => {
   }
   return res.send({ screen: `Welcome user: ${req.user.username}!` }).end();
 };
+
+exports.requiresLogin = function (req, res, next) {
+  if (!req.user) {
+    return res.send({ screen: "auth" }).end();
+  }
+  next();
+};
+
+exports.isPatient = function (req, res, next) {
+  if (req.user && req.user.role.equals("patient")) {
+    next();
+  } else {
+    return res.status(403).send({
+      message: "User is not able to create Daily Info",
+    });
+  }
+};
+
+exports.isNurse = function (req, res, next) {
+  if (req.user && req.user.role.equals("nurse")) {
+    next();
+  } else {
+    return res.status(403).send({
+      message: "User is not able to create Daily Info",
+    });
+  }
+};

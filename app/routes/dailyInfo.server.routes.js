@@ -1,10 +1,11 @@
 var DaliyInfo = require("../controllers/dailyInfo.server.controller.js");
+var login = require("../controllers/login.server.controller");
 
 module.exports = function (app) {
   // create dailyInfo
   app
     .route("/api/dailyInfo/create")
-    .post(DaliyInfo.requiresLogin, DaliyInfo.isPatient, DaliyInfo.create);
+    .post(login.requiresLogin, login.isPatient, DaliyInfo.create);
 
   // to show a list of dailyInfo
   app.route("/api/dailyInfos").get(DaliyInfo.list);
@@ -13,11 +14,7 @@ module.exports = function (app) {
   app
     .route("/api/dailyInfo/:dailyInfoId")
     .get(DaliyInfo.read)
-    .put(DaliyInfo.requiresLogin, DaliyInfo.hasAuthorization, DaliyInfo.update)
-    .delete(
-      DaliyInfo.requiresLogin,
-      DaliyInfo.hasAuthorization,
-      DaliyInfo.delete
-    );
+    .put(login.requiresLogin, DaliyInfo.hasAuthorization, DaliyInfo.update)
+    .delete(login.requiresLogin, DaliyInfo.hasAuthorization, DaliyInfo.delete);
   app.param("dailyInfoId", DaliyInfo.infoByID);
 };

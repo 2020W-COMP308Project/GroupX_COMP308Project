@@ -1,4 +1,4 @@
-const DailyInfo = require("mongoose").model("DailyInfo");
+const Alert = require("mongoose").model("Alert");
 
 const getErrorMessage = function (err) {
   var message = "";
@@ -16,48 +16,48 @@ const getErrorMessage = function (err) {
 };
 
 exports.create = function (req, res) {
-  const dailyInfo = new DailyInfo(req.body);
-  dailyInfo.owner = req.user._id;
-  dailyInfo.lastModified = Date.now;
+  const alert = new Alert(req.body);
+  alert.owner = req.user._id;
+  alert.hasRead = false;
 
-  dailyInfo.save((err) => {
+  alert.save((err) => {
     if (err) {
       return res.status(400).send({
         message: getErrorMessage(err),
       });
     } else {
-      res.status(200).json(dailyInfo);
+      res.status(200).json(alert);
     }
   });
 };
 
 exports.list = function (req, res) {
-  DailyInfo.find()
+  Alert.find()
     .sort("-owner")
     .sort("-created")
-    .exec((err, dailyInfo) => {
+    .exec((err, alerts) => {
       if (err) {
         return res.status(400).send({
           message: getErrorMessage(err),
         });
       } else {
-        return res.status(200).json(dailyInfo);
+        return res.status(200).json(alerts);
       }
     });
 };
 
 exports.infoByID = function (req, res, next, id) {
-  DailyInfo.findById(id).exec((err, dailyInfo) => {
+  Alert.findById(id).exec((err, alert) => {
     if (err) return next(err);
-    if (!dailyInfo) return next(new Error("Failed to load daily Info " + id));
-    req.dailyInfo = dailyInfo;
-    req.dailyInfoId = dailyInfo._id;
+    if (!alert) return next(new Error("Failed to load alert " + id));
+    req.alert = alert;
+    req.alertId = alert._id;
     next();
   });
 };
 
 exports.hasAuthorization = function (req, res, next) {
-  if (!req.dailyInfo.owner.equals(req.user._id)) {
+  if (!req.alert.owner.equals(req.user._id)) {
     return res.status(403).send({
       message: "User is not authorized",
     });
@@ -66,25 +66,22 @@ exports.hasAuthorization = function (req, res, next) {
 };
 
 exports.read = function (req, res) {
-  res.status(200).json(req.dailyInfo);
+  res.status(200).json(req.alert);
 };
 
 exports.update = function (req, res) {
-  DailyInfo.findByIdAndUpdate({ _id: req.dailyInfoId }, req.body, function (
+  Alert.findByIdAndUpdate({ _id: req.alertId }, req.body, function (
     err,
-    dailyInfo
+    alert
   ) {
     if (err) return next(err);
-    res.json(dailyInfo);
+    res.json(alert);
   });
 };
 
 exports.delete = function (req, res) {
-  DailyInfo.findOneAndRemove({ _id: req.dailyInfoId }, req.body, function (
-    err,
-    dailyInfo
-  ) {
+  Alert.findOneAndRemove({ _id: req.alertId }, req.body, function (err, alert) {
     if (err) return next(err);
-    res.json(dailyInfo);
+    res.json(alert);
   });
 };
