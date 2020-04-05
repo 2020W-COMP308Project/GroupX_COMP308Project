@@ -12,7 +12,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 
 // Define the Express configuration method
-module.exports = function() {
+module.exports = function () {
   // Create a new Express application instance
   const app = express();
 
@@ -26,12 +26,12 @@ module.exports = function() {
   // Use the 'body-parser' and 'method-override' middleware functions
   app.use(
     bodyParser.urlencoded({
-      extended: true
+      extended: true,
     })
   );
   app.use(bodyParser.json());
   app.use(methodOverride());
-  app.use(function(req, res, next) {
+  app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
       "Access-Control-Allow-Headers",
@@ -51,7 +51,7 @@ module.exports = function() {
     session({
       saveUninitialized: true,
       resave: true,
-      secret: config.sessionSecret // secret used to sign the session ID cookie
+      secret: config.sessionSecret, // secret used to sign the session ID cookie
     })
   );
 
@@ -67,9 +67,11 @@ module.exports = function() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // Load the 'comment' and 'course' routing file
-  //require("../app/routes/course.server.routes.js")(app);
-  //require("../app/routes/students.server.routes.js")(app);
+  // Load the routing files
+  require("../app/routes/alert.server.routes.js")(app);
+  require("../app/routes/clinicalVisit.server.routes.js")(app);
+  require("../app/routes/dailyInfo.server.routes.js")(app);
+  require("../app/routes/login.server.routes.js")(app);
 
   // Configure static file serving
   app.use(express.static("./public"));
