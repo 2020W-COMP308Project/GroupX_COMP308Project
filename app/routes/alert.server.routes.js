@@ -1,4 +1,4 @@
-var Alert = require("../controllers/alert.server.controller.js");
+var Alert = require("../controllers/alert.server.controller");
 var login = require("../controllers/login.server.controller");
 
 module.exports = function (app) {
@@ -16,5 +16,5 @@ module.exports = function (app) {
     .get(Alert.read)
     .put(login.requiresLogin, Alert.hasAuthorization, Alert.update)
     .delete(login.requiresLogin, Alert.hasAuthorization, Alert.delete);
-  app.param("alertId", Alert.alertByID);
+  app.param("alertId", Alert.infoByID);
 };

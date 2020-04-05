@@ -16,9 +16,10 @@ const getErrorMessage = function (err) {
 };
 
 exports.create = function (req, res) {
-  const dailyInfo = new DailyInfo(req.body);
-  dailyInfo.owner = req.user._id;
-  dailyInfo.lastModified = Date.now;
+  var dailyInfo = new DailyInfo(req.body);
+  console.log(dailyInfo);
+  //dailyInfo.owner = req.user._id;
+  dailyInfo.lastModified = dailyInfo.created;
 
   dailyInfo.save((err) => {
     if (err) {

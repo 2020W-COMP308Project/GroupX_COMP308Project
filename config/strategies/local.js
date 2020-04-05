@@ -1,32 +1,32 @@
 // Load the module dependencies
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const Student = require("mongoose").model("Student");
+const User = require("mongoose").model("User");
 
 // Create the Local strategy configuration method
-module.exports = function() {
+module.exports = function () {
   // Use the Passport's Local strategy
   passport.use(
-    new LocalStrategy(function(username, password, done) {
-      Student.findOne(
+    new LocalStrategy(function (username, password, done) {
+      User.findOne(
         {
-          studentNumber: username
+          username: username,
         },
-        (err, student) => {
+        (err, user) => {
           if (err) {
             return done(err);
           }
-          if (!student) {
+          if (!user) {
             return done(null, false, {
-              message: "Unknown user"
+              message: "Unknown user",
             });
           }
-          if (!student.authenticate(password)) {
+          if (!user.authenticate(password)) {
             return done(null, false, {
-              message: "Invalid password"
+              message: "Invalid password",
             });
           }
-          return done(null, student);
+          return done(null, user);
         }
       );
     })
