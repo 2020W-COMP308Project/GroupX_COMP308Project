@@ -17,7 +17,7 @@ const getErrorMessage = function (err) {
 
 exports.create = function (req, res) {
   const visit = new ClinicalVisit(req.body);
-  visit.nurse = req.user._id;
+  //visit.nurse = req.user._id;
   // TODO: not sure why to set up patient here
   // search by patientname or patientId?
 
