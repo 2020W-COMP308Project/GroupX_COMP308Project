@@ -19,6 +19,7 @@ function RegisterUser(props) {
     created: "",
   });
   const [showLoading, setShowLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/signup";
 
   const saveUser = (e) => {
@@ -38,13 +39,18 @@ function RegisterUser(props) {
       .post(apiUrl, data)
       .then((result) => {
         setShowLoading(false);
-        props.history.push("/login");
+        if (result.data.screen === "error") {
+          setShowError(true);
+          console.log("error: " + showError);
+        } else {
+          props.history.push("/login");
+        }
       })
       .catch((error) => setShowLoading(false));
   };
 
   const onChange = (e) => {
-   e.persist();
+    e.persist();
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
@@ -62,6 +68,12 @@ function RegisterUser(props) {
           </Spinner>
         )}
         <div className="container-fluid margins">
+          {showError && (
+            <span>
+              There is something wrong... Not able register with given
+              information
+            </span>
+          )}
           <Jumbotron className="bg-light">
             <Form onSubmit={saveUser}>
               <Form.Group>

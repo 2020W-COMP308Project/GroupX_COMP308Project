@@ -1,5 +1,4 @@
 const User = require("mongoose").model("User");
-const passport = require("passport");
 
 const getErrorMessage = function (err) {
   var message = "";
@@ -29,12 +28,16 @@ exports.index = function (req, res) {
 exports.create = function (req, res) {
   const user = new User(req.body);
   user.provider = "local";
-    user.verified=true;
+  user.verified = true;
   user.save((err) => {
     if (err) {
       const message = getErrorMessage(err);
       req.flash("error", message); //save the error into flash memory.
-     return next(err);
+      //return next(err);
+      return res.send({
+        screen: "error",
+        message: "Not able register with given information",
+      });
     } else {
       return res.json(user);
     }
@@ -91,9 +94,9 @@ exports.isNurse = function (req, res, next) {
 };
 //
 // Returns all users
-exports.list = function(req, res, next) {
+exports.list = function (req, res, next) {
   // Use the 'User' instance's 'find' method to retrieve a new user document
-  User.find({}, function(err, users) {
+  User.find({}, function (err, users) {
     if (err) {
       return next(err);
     } else {

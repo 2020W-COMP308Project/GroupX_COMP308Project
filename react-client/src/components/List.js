@@ -28,14 +28,13 @@ function List(props) {
   return (
     <div className="container">
       <div className="span12 div-style">
-    
         <h2 className="h2-style">List Of Users</h2>
         {showLoading && (
           <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
         )}
-        <h5 class="paddings">Click on course to see course details.</h5>
+        <h5 class="paddings">Click on user to see user details.</h5>
         <ListGroup>
           {data.map((item, idx) => (
             <ListGroup.Item
@@ -45,7 +44,14 @@ function List(props) {
                 showDetail(item._id);
               }}
             >
-              {"User name:  =>" + item.username +", First name=> "+item.firstName+", Last Name=> "+item.lastName +", Role=> "+item.role}
+              {"User name:  =>" +
+                item.username +
+                ", First name=> " +
+                item.firstName +
+                ", Last Name=> " +
+                item.lastName +
+                ", Role=> " +
+                item.role}
             </ListGroup.Item>
           ))}
         </ListGroup>
