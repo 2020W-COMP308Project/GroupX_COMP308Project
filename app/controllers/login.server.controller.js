@@ -1,4 +1,5 @@
 const User = require("mongoose").model("User");
+const passport = require("passport");
 
 const getErrorMessage = function (err) {
   var message = "";
@@ -28,11 +29,12 @@ exports.index = function (req, res) {
 exports.create = function (req, res) {
   const user = new User(req.body);
   user.provider = "local";
+    user.verified=true;
   user.save((err) => {
     if (err) {
       const message = getErrorMessage(err);
       req.flash("error", message); //save the error into flash memory.
-      return next(err);
+     return next(err);
     } else {
       return res.json(user);
     }
@@ -86,4 +88,16 @@ exports.isNurse = function (req, res, next) {
       message: "User is not able to create Daily Info",
     });
   }
+};
+//
+// Returns all users
+exports.list = function(req, res, next) {
+  // Use the 'User' instance's 'find' method to retrieve a new user document
+  User.find({}, function(err, users) {
+    if (err) {
+      return next(err);
+    } else {
+      res.json(users);
+    }
+  });
 };

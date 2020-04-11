@@ -5,39 +5,38 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   firstName: String,
   lastName: String,
-  userNumber: {
+  username: {
     type: String,
     unique: true,
-    required: "Username is required"
+    required: "Username is required",
   },
   password: {
     type: String,
-    validate: [password => password.length >= 6, "Password Should be Longer"]
+    validate: [(password) => password.length >= 6, "Password Should be Longer"],
   },
   role: {
     type: String,
-    unique: true,
-    required: "Role is required"
+    required: "Role is required",
   },
   LastLoggedIn: Date,
   verified: Boolean,
   salt: {
-    type: String
+    type: String,
   },
   provider: {
     type: String,
     // Validate 'provider' value existance
-    required: "Provider is required"
+    required: "Provider is required",
   },
   providerId: String,
   providerData: {},
   created: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-UserSchema.pre("save", function(next) {
+UserSchema.pre("save", function (next) {
   if (this.password) {
     this.salt = new Buffer(crypto.randomBytes(16).toString("base64"), "base64");
     this.password = this.hashPassword(this.password);
@@ -45,20 +44,20 @@ UserSchema.pre("save", function(next) {
   next();
 });
 
-UserSchema.methods.hashPassword = function(password) {
+UserSchema.methods.hashPassword = function (password) {
   //console.log(crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha1').toString('hex'))
   return crypto
     .pbkdf2Sync(password, this.salt, 1000, 64, "sha1")
     .toString("hex");
 };
 
-UserSchema.methods.authenticate = function(password) {
+UserSchema.methods.authenticate = function (password) {
   return this.password === this.hashPassword(password);
 };
 
 UserSchema.set("toJSON", {
   getters: true,
-  virtuals: true
+  virtuals: true,
 });
 
 mongoose.model("User", UserSchema);

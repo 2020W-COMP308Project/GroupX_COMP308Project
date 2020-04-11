@@ -16,7 +16,9 @@ module.exports = function (app) {
       failureFlash: true,
     })
   );
-
+//
+//
+  app.get("/users", login.list); 
   //
   app.route("/api/read_cookie").get(login.isSignedIn);
 

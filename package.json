@@ -1,7 +1,7 @@
 {
   "name": "comp308groupproject",
   "version": "1.0.0",
-  "description": "OMP308 - Group Project",
+  "description": "COMP308 - Group Project",
   "main": "server.js",
   "author": "Hang Li, Frank Zhou, Logan Kim, Kei Mizubuchi, Sadia Rashid, Rithesh D'Cruz",
   "license": "MIT",
@@ -16,12 +16,13 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "mongoose": "5.8.9",
-    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "react-radio-buttons": "^1.2.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
