@@ -17,17 +17,6 @@ function App() {
   const auth = async () => {
     console.log("calling auth");
     try {
-      // //make a get request to /authenticate end-point on the server
-      // const loginData = { auth: { username, password } };
-      // //call api
-      // const res = await axios.post(apiUrl, loginData);
-      // console.log("res===>"+res.data.screen);
-      //  console.log(res.data.auth);
-      // //process the response
-      // if (res.data.screen !== undefined) {
-      //     setScreen(res.data.screen);
-      //     console.log(res.data.screen);
-      // }
       //call api
       let loginData = { username, password };
       const res = await axios.post(apiUrl, loginData);
@@ -38,7 +27,6 @@ function App() {
       }
     } catch (e) {
       //print the error
-      console.log("Exception   =====");
       console.log(e);
     }
   };
@@ -100,7 +88,7 @@ function App() {
             </div>
           </div>
         ) : (
-          <List screen={screen} setScreen={setScreen} />
+          <View screen={screen} setScreen={setScreen} />
         )}
       </div>
     </div>

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Spinner from "react-bootstrap/Spinner";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import {Spinner, Jumbotron, Form, Button, ButtonGroup, ButtonToolbar} from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+
 
 function RegisterUser(props) {
   const [user, setUser] = useState({
@@ -19,6 +17,8 @@ function RegisterUser(props) {
     created: "",
   });
   const [showLoading, setShowLoading] = useState(false);
+    const [userRole, setUserRole] = useState();
+    const [numSentence, setNumSentence] = useState(3);
   const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/signup";
 
@@ -27,9 +27,9 @@ function RegisterUser(props) {
     e.preventDefault();
     const data = {
       username: user.username,
-      firstName: user.firstName.toUpperCase(),
-      lastName: user.lastName.toUpperCase(),
-      role: user.role,
+      firstName: user.firstName.toLowerCase(),
+      lastName: user.lastName.toLowerCase(),
+        role: userRole,
       lastLoggedIn: user.lastLoggedIn,
       password: user.password,
       verified: user.verified,
@@ -48,6 +48,9 @@ function RegisterUser(props) {
       })
       .catch((error) => setShowLoading(false));
   };
+const onClick=(e)=>{
+
+}
 
   const onChange = (e) => {
     e.persist();
@@ -119,7 +122,8 @@ function RegisterUser(props) {
                   value={user.password}
                   onChange={onChange}
                 />
-                <Form.Group>
+                </Form.Group>
+                {/* <Form.Group>
                   <Form.Label>Role</Form.Label>
                   <Form.Control
                     type="text"
@@ -129,8 +133,19 @@ function RegisterUser(props) {
                     value={user.role}
                     onChange={onChange}
                   />
-                </Form.Group>
-              </Form.Group>
+              </Form.Group> */}
+                <Form.Group>
+                          <ButtonToolbar aria-label="buttons for role">
+                                <Form.Label>Role</Form.Label>
+                                <div className="margins-left">
+                                      <ButtonGroup className="mr-4" aria-label="role">
+                                          <Button variant="outline-success" onClick={e => setUserRole("nurse")}  > Nurse</Button>
+                                          <Button variant="outline-danger" onClick={e => setUserRole("patient")} >Patient</Button>
+                                      </ButtonGroup>
+                                </div>
+                                  
+                          </ButtonToolbar>
+                          </Form.Group>
               <div className="text-center">
                 <Button variant="outline-danger col-6" type="submit">
                   Save
