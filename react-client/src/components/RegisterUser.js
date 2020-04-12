@@ -47,9 +47,6 @@ function RegisterUser(props) {
       })
       .catch((error) => setShowLoading(false));
   };
-const onClick=(e)=>{
-
-}
 
   const onChange = (e) => {
     e.persist();
