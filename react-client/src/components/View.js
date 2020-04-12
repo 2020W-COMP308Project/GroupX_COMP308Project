@@ -52,7 +52,7 @@ function View(props) {
             <div className="btn-group margin-bottom" role="group">
               <button
                 onClick={deleteCookie}
-                className="btn btn-secondary margins"
+                className="btn btn-outline-danger margins"
                 type="button"
               >
                 Log out
@@ -63,11 +63,10 @@ function View(props) {
           <RegisterUser screen={screen} setScreen={setScreen} />
         )}
       </div>
-      {
-      <div>
-        {<List screen={screen} setScreen={setScreen} />}
-      </div> }
+      
+          <List screen={screen} setScreen={setScreen} />
     </div>
+           
   );
 }
 
