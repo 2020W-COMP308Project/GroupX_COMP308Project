@@ -18,7 +18,6 @@ function RegisterUser(props) {
   });
   const [showLoading, setShowLoading] = useState(false);
     const [userRole, setUserRole] = useState();
-    const [numSentence, setNumSentence] = useState(3);
   const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/signup";
 
@@ -123,17 +122,6 @@ const onClick=(e)=>{
                   onChange={onChange}
                 />
                 </Form.Group>
-                {/* <Form.Group>
-                  <Form.Label>Role</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="role"
-                    id="role"
-                    placeholder="Enter either patient or nurse."
-                    value={user.role}
-                    onChange={onChange}
-                  />
-              </Form.Group> */}
                 <Form.Group>
                           <ButtonToolbar aria-label="buttons for role">
                                 <Form.Label>Role</Form.Label>
