@@ -17,6 +17,7 @@ const getErrorMessage = function (err) {
 
 exports.create = function (req, res) {
   const alert = new Alert(req.body);
+  console.log(alert);
   //alert.owner = req.user._id;
   alert.hasRead = false;
 
