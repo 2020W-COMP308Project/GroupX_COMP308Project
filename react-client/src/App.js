@@ -14,6 +14,8 @@ import Nav from "react-bootstrap/Nav";
 import "./App.css";
 //
 
+import VitalHistoryView from "./components/VitalHistoryView";
+import VitalHistory from "./components/VitalHistory";
 import VitalSigns from "./components/VitalSigns";
 import RegisterUser from "./components/RegisterUser";
 import Login from "./components/Login";
@@ -56,18 +58,29 @@ function App() {
               <Nav.Link href="/login">Login</Nav.Link>
               <Nav.Link href="/registerUser">Register</Nav.Link>
               <Nav.Link href="/vitalSigns">Add Vital Signs</Nav.Link>
+              <Nav.Link href="/vitalHistory">Vital History</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
 
         <div>
-        <Route render={() => <Home />} path="/home" />
-        <Route render={() => <Login />} path="/login" />
-        <Route render={() => <RegisterUser />} path="/registerUser" />
-        {screen !== "auth" && role === "nurse" ? (
-            <Route render={() => <VitalSigns />} path="/vitalSigns" />
-        ) : (
-            <Route render={() => <Login />} path="/vitalSigns" />
+            <Route render={() => <Home />} path="/home" />
+            <Route render={() => <Login />} path="/login" />
+            <Route render={() => <RegisterUser />} path="/registerUser" />
+            {screen !== "auth" && role === "nurse" ? (
+                <Route render={() => <VitalSigns />} path="/vitalSigns" />
+            ) : (
+                <Route render={() => <Login />} path="/vitalSigns" />
+            )}
+            {screen !== "auth" && role === "nurse" ? (
+                <Route render={() => <VitalHistory />} path="/vitalHistory" />
+            ) : (
+                <Route render={() => <Login />} path="/vitalHistory" />
+            )}
+            {screen !== "auth" && role === "nurse" ? (
+                <Route render={() => <VitalHistoryView />} path="/vitalHistoryView/:id" />
+            ) : (
+                <Route render={() => <Login />} path="/vitalHistoryView/:id" />
             )}
         </div>
       </Router>
