@@ -15,9 +15,10 @@ import "./App.css";
 //
 
 import ViewEmergencyAlerts from "./components/ViewEmergencyAlerts";
-
+import DailyInfoEdit from "./components/DailyInfoEdit";
 import DailyInfoHistory from "./components/DailyInfoHistory";
 import DailyInfo from "./components/DailyInfo";
+import VitalEdit from "./components/VitalEdit";
 import VitalHistoryView from "./components/VitalHistoryView";
 import VitalHistory from "./components/VitalHistory";
 import VitalSigns from "./components/VitalSigns";
@@ -72,36 +73,39 @@ function App() {
         </Navbar.Collapse>
       </Navbar>
 
+
       <div>
         <Route render={() => <Home />} path="/home" />
         <Route render={() => <Login />} path="/login" />
         <Route render={() => <RegisterUser />} path="/registerUser" />
-
         <Route render={() => <SendEmergencyAlert />} path="/sendEmergencyAlert" />
         <Route render={() => <ViewEmergencyAlerts />} path="/viewEmergencyAlerts" />
-
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
             <Route render={() => <VitalSigns />} path="/vitalSigns" />
             <Route render={() => <VitalHistory />} path="/vitalHistory" />
             <Route render={() => <VitalHistoryView />} path="/vitalHistoryView/:id" />
+            <Route render={() => <VitalEdit />} path="/vitalEdit/:id" />
           </React.Fragment>
         ) : (
             <React.Fragment>
               <Route render={() => <Login />} path="/vitalSigns" />
               <Route render={() => <Login />} path="/vitalHistory" />
               <Route render={() => <Login />} path="/vitalHistoryView/:id" />
+              <Route render={() => <Login />} path="/vitalEdit/:id" />
             </React.Fragment>
           )}
         {screen !== "auth" && role === "patient" ? (
           <React.Fragment>
             <Route render={() => <DailyInfo />} path="/dailyInfo" />
             <Route render={() => <DailyInfoHistory />} path="/dailyInfoHistory" />
+            <Route render={() => <DailyInfoEdit />} path="/dailyInfoEdit/:id" />
           </React.Fragment>
         ) : (
             <React.Fragment>
               <Route render={() => <Login />} path="/dailyInfo" />
               <Route render={() => <Login />} path="/dailyInfoHistory" />
+              <Route render={() => <Login />} path="/dailyInfoEdit/:id" />
             </React.Fragment>
           )}
       </div>
