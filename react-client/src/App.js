@@ -68,19 +68,17 @@ function App() {
             <Route render={() => <Login />} path="/login" />
             <Route render={() => <RegisterUser />} path="/registerUser" />
             {screen !== "auth" && role === "nurse" ? (
-                <Route render={() => <VitalSigns />} path="/vitalSigns" />
+                <React.Fragment>
+                    <Route render={() => <VitalSigns />} path="/vitalSigns" />
+                    <Route render={() => <VitalHistory />} path="/vitalHistory" />
+                    <Route render={() => <VitalHistoryView />} path="/vitalHistoryView/:id" />
+                </React.Fragment>
             ) : (
-                <Route render={() => <Login />} path="/vitalSigns" />
-            )}
-            {screen !== "auth" && role === "nurse" ? (
-                <Route render={() => <VitalHistory />} path="/vitalHistory" />
-            ) : (
-                <Route render={() => <Login />} path="/vitalHistory" />
-            )}
-            {screen !== "auth" && role === "nurse" ? (
-                <Route render={() => <VitalHistoryView />} path="/vitalHistoryView/:id" />
-            ) : (
-                <Route render={() => <Login />} path="/vitalHistoryView/:id" />
+                <React.Fragment>
+                    <Route render={() => <Login />} path="/vitalSigns" />
+                    <Route render={() => <Login />} path="/vitalHistory" />
+                    <Route render={() => <Login />} path="/vitalHistoryView/:id" />
+                </React.Fragment>
             )}
         </div>
       </Router>
