@@ -76,12 +76,14 @@ function App() {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-control"
+                required
               />
             </div>
             <div className="form-group text-center">
               <button
                 onClick={auth}
                 className="btn btn-outline-danger margin-bottom col-6 "
+                required
               >
                 Login
               </button>
