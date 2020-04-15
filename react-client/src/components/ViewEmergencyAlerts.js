@@ -15,6 +15,7 @@ function ViewEmergencyAlerts(props) {
         setShowLoading(false);
         const fetchData = async () => {
             const result = await axios(apiUrl);
+            console.log(result.data);
             setData(result.data);
             setShowLoading(false);
         };
@@ -25,10 +26,10 @@ function ViewEmergencyAlerts(props) {
     let array = [];
 
     data.map(item => {
-        if (item.owner === nurseId) {
-            array.push(item);
-            return item;
-        }
+        // if (item.owner === nurseId) {
+        array.push(item);
+        return item;
+        // }
     })
 
     const displayEmergencyAlertTable = array.map((alert, idx) => {

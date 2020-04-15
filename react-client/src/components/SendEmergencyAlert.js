@@ -5,37 +5,13 @@ import { withRouter } from "react-router-dom";
 
 
 function SendEmergencyAlert(props) {
-  // //state variable for the screen, admin or user
-  // const [userId, setUserId] = useState("auth");
-
-  // //check if the user already logged-in
-  // const readCookie = async () => {
-  //   try {
-  //     console.log("--- in readCookie function ---");
-  //     //
-  //     const res = await axios.get("/api/read_cookie");
-  //     //
-  //     if (res.data.userId !== undefined) {
-  //       setUserId(res.data.userId);
-  //       console.log(res.data.userId);
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-  // //runs the first time the view is rendered
-  // //to check if user is signed in
-  // useEffect(() => {
-  //   readCookie();
-  // }, []); //only the first render
-  // //
 
   // initial values for an alert
   const [alert, setAlert] = useState({
-    message: "Emergency! Emergency!",
-    owner: null, //
+    message: "Emergency! Emergency!", // default message
+    owner: null,
     hasRead: false,
-    created: "",
+    created: null,
   });
   const [showLoading, setShowLoading] = useState(false);
   //  const [userRole, setUserRole] = useState();  
