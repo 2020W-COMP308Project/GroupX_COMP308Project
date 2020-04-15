@@ -98,60 +98,68 @@ function DailyInfo(props) {
                     <Jumbotron className="bg-light">
                         <Form onSubmit={saveDailyInfo}>
                             <Form.Group>
-                                <Form.Label>Pulse Rate</Form.Label>
+                                <Form.Label>Pulse Rate (per minute)</Form.Label>
                                 <Form.Control
                                 type="number"
                                 name="pulseRate"
                                 id="pulseRate"
-                                placeholder="Enter pulse rate"
+                                placeholder="E.g. 80"
+                                min="1"
+                                step="1"
                                 value={dailyInfo.pulseRate}
                                 onChange={onChange}
                                 required
                                 />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Blood Pressure</Form.Label>
+                                <Form.Label>Blood Pressure (systolic/diastolic mm Hg)</Form.Label>
                                 <Form.Control
-                                type="number"
+                                type="text"
                                 name="bloodPressure"
                                 id="bloodPressure"
-                                placeholder="Enter a blood pressure."
+                                placeholder="E.g. 120/80"
+                                pattern="^\d{2,3}\/\d{2,3}$"
                                 value={dailyInfo.bloodPressure}
                                 onChange={onChange}
                                 required
                                 />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Weight</Form.Label>
+                                <Form.Label>Weight (lb)</Form.Label>
                                 <Form.Control
                                 type="number"
                                 name="weight"
                                 id="weight"
-                                placeholder="Enter a weight."
+                                placeholder="E.g. 180.5"
+                                min="1"
+                                step="0.1"
                                 value={dailyInfo.weight}
                                 onChange={onChange}
                                 required
                                 />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Temperature</Form.Label>
+                                <Form.Label>Temperature (°C)</Form.Label>
                                 <Form.Control
                                 type="number"
                                 name="temperature"
                                 id="temperature"
-                                placeholder="Enter a temperature."
+                                placeholder="E.g. 36.5"
+                                min="1"
                                 value={dailyInfo.temperature}
                                 onChange={onChange}
                                 required
                                 />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Respiratory Rate</Form.Label>
+                                <Form.Label>Respiratory Rate (per minute)</Form.Label>
                                 <Form.Control
                                 type="number"
                                 name="respiratoryRate"
                                 id="respiratoryRate"
-                                placeholder="Enter respiratory rate."
+                                placeholder="E.g. 16"
+                                min="1"
+                                step="1"
                                 value={dailyInfo.respiratoryRate}
                                 onChange={onChange}
                                 required

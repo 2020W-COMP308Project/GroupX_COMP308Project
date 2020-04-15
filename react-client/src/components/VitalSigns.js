@@ -105,48 +105,55 @@ function VitalSigns(props) {
                     <Jumbotron className="bg-light">
                         <Form onSubmit={saveVital}>
                             <Form.Group>
-                                <Form.Label>Body Temperature</Form.Label>
+                                <Form.Label>Body Temperature (°C)</Form.Label>
                                 <Form.Control
                                 type="number"
                                 name="bodyTemperature"
                                 id="bodyTemperature"
-                                placeholder="Enter body temperature"
+                                placeholder="E.g. 36.5"
+                                min="1"
+                                step="0.1"
                                 value={vital.bodyTemperature}
                                 onChange={onChange}
                                 required
                                 />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Heart Rate</Form.Label>
+                                <Form.Label>Heart Rate (per minute)</Form.Label>
                                 <Form.Control
                                 type="number"
                                 name="heartRate"
                                 id="heartRate"
-                                placeholder="Enter heart rate."
+                                placeholder="E.g. 80"
+                                min="1"
+                                step="1"
                                 value={vital.heartRate}
                                 onChange={onChange}
                                 required
                                 />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Blood Pressure</Form.Label>
+                                <Form.Label>Blood Pressure (systolic/diastolic mm Hg)</Form.Label>
                                 <Form.Control
-                                type="number"
+                                type="text"
                                 name="bloodPressure"
                                 id="bloodPressure"
-                                placeholder="Enter a blood pressure."
+                                placeholder="E.g. 120/80"
+                                pattern="^\d{2,3}\/\d{2,3}$"
                                 value={vital.bloodPressure}
                                 onChange={onChange}
                                 required
                                 />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Respiratory Rate</Form.Label>
+                                <Form.Label>Respiratory Rate (per minute)</Form.Label>
                                 <Form.Control
                                 type="number"
                                 name="respiratoryRate"
                                 id="respiratoryRate"
-                                placeholder="Enter respiratory rate."
+                                placeholder="E.g. 16"
+                                min="1"
+                                step="1"
                                 value={vital.respiratoryRate}
                                 onChange={onChange}
                                 required
