@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
     BrowserRouter as Router,
     Switch,
@@ -20,6 +21,31 @@ import Home from "./components/Home";
 
 //
 function App() {
+    const [screen, setScreen] = useState("auth");
+    const [role, setRole] = useState("auth");
+
+    const readCookie = async () => {
+        try {
+            const res = await axios.get("/api/read_cookie");
+
+            if (res.data.screen !== undefined) {
+                setScreen(res.data.screen);
+            }
+
+            if (res.data.role !== undefined) {
+                setRole(res.data.role);
+            }
+        } catch (e) {
+            setScreen("auth");
+            setRole("auth");
+            console.log(e);
+        }
+    };
+
+    useEffect(() => {
+        readCookie();
+    }, []);
+
     return (
       <Router>
         <Navbar bg="light" expand="lg">
@@ -35,10 +61,14 @@ function App() {
         </Navbar>
 
         <div>
-          <Route render={() => <Home />} path="/home" />
-          <Route render={() => <Login />} path="/login" />
-          <Route render={() => <RegisterUser />} path="/registerUser" />
-          <Route render={() => <VitalSigns />} path="/vitalSigns" />
+        <Route render={() => <Home />} path="/home" />
+        <Route render={() => <Login />} path="/login" />
+        <Route render={() => <RegisterUser />} path="/registerUser" />
+        {screen !== "auth" && role === "nurse" ? (
+            <Route render={() => <VitalSigns />} path="/vitalSigns" />
+        ) : (
+            <Route render={() => <Login />} path="/vitalSigns" />
+            )}
         </div>
       </Router>
     );

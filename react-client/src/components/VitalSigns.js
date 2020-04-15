@@ -1,23 +1,38 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {Spinner, Jumbotron, Form, Button, ButtonGroup, ButtonToolbar} from "react-bootstrap";
+import {Spinner, Jumbotron, Form, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
 function VitalSigns(props) {
-    const nurseId = props.screen;
-    console.log("nurseId in VitalSigns: " + nurseId);
+    const [screen, setScreen] = useState("auth");
+
+    const readCookie = async () => {
+        try {
+            const res = await axios.get("/api/read_cookie");
+
+            if (res.data.screen !== undefined) {
+                setScreen(res.data.screen);
+            }
+        } catch (e) {
+            setScreen("auth");
+            console.log(e);
+        }
+    };
 
     const [user, setUser] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios("http://localhost:3000/users");
+            const result = await axios("http://localhost:3000/patients");
             setUser(result.data);
             setShowLoading(false);
         };
-    
+
+        readCookie();
         fetchData();
     }, []);
+
+    const nurseId = screen;
 
     const [vital, setVital] = useState({
         _id: "",
@@ -30,8 +45,6 @@ function VitalSigns(props) {
         created: "",
     });
 
-    console.log("patientId in VitalSigns: " + vital.patient);
-
     const [showLoading, setShowLoading] = useState(false);
     const [showError, setShowError] = useState(false);
 
@@ -43,12 +56,12 @@ function VitalSigns(props) {
         e.preventDefault();
         const data = {
             bodyTemperature: vital.bodyTemperature,
-            heartRate: vital.firstName.toLowerCase(),
-            bloodPressure: vital.lastName.toLowerCase(),
-            respiratoryRate: vital.userRole,
+            heartRate: vital.heartRate,
+            bloodPressure: vital.bloodPressure,
+            respiratoryRate: vital.respiratoryRate,
             nurse: nurseId,
             patient: vital.patient,
-            created: currDateTime,
+            created: currDateTime
         };
 
         axios
@@ -71,8 +84,8 @@ function VitalSigns(props) {
     };
 
     return (
-        <div className="container-fluid  d-flex justify-content-center">
-        <div className="col-6 div-style">
+        <div className="container-fluid col-12 div-right">
+        <div className="span12 div-style">
             <div className="bg-danger text-light title">
             {" "}
             <h2 className="h2-style">Add Vital Signs</h2>
@@ -147,10 +160,11 @@ function VitalSigns(props) {
                     value={vital.patient}
                     onChange={onChange}
                     required>
-                    <option selected disabled value="">Please select patient below</option>
+                    <option selected disabled value="">Please select a patient below</option>
                     {user.map((item, idx) => (
                         <option
-                          value={item._id}
+                            key={idx}
+                            value={item._id}
                         >
                         {
                             "Name: " +
