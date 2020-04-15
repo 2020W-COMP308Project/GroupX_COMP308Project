@@ -14,6 +14,8 @@ import Nav from "react-bootstrap/Nav";
 import "./App.css";
 //
 
+import DailyInfoHistory from "./components/DailyInfoHistory";
+import DailyInfo from "./components/DailyInfo";
 import VitalHistoryView from "./components/VitalHistoryView";
 import VitalHistory from "./components/VitalHistory";
 import VitalSigns from "./components/VitalSigns";
@@ -59,6 +61,8 @@ function App() {
               <Nav.Link href="/registerUser">Register</Nav.Link>
               <Nav.Link href="/vitalSigns">Add Vital Signs</Nav.Link>
               <Nav.Link href="/vitalHistory">Vital History</Nav.Link>
+              <Nav.Link href="/dailyInfo">Add Daily Info</Nav.Link>
+              <Nav.Link href="/dailyInfoHistory">Daily Info History</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -78,6 +82,17 @@ function App() {
                     <Route render={() => <Login />} path="/vitalSigns" />
                     <Route render={() => <Login />} path="/vitalHistory" />
                     <Route render={() => <Login />} path="/vitalHistoryView/:id" />
+                </React.Fragment>
+            )}
+            {screen !== "auth" && role === "patient" ? (
+                <React.Fragment>
+                    <Route render={() => <DailyInfo />} path="/dailyInfo" />
+                    <Route render={() => <DailyInfoHistory />} path="/dailyInfoHistory" />
+                </React.Fragment>
+            ) : (
+                <React.Fragment>
+                   <Route render={() => <Login />} path="/dailyInfo" />
+                    <Route render={() => <Login />} path="/dailyInfoHistory" />
                 </React.Fragment>
             )}
         </div>
