@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
 
 
@@ -31,6 +32,12 @@ function VitalHistoryView(props) {
         }
     });
 
+    const editVital = id => {
+        props.history.push({
+            pathname: "/vitalEdit/" + id
+        });
+    };
+
     const displayAllVitalHistoryTable = array.map((vital, idx) => {
         return (
             <tr key={idx}>
@@ -39,6 +46,17 @@ function VitalHistoryView(props) {
                 <td>{vital.bloodPressure}</td>
                 <td>{vital.respiratoryRate}</td>
                 <td>{vital.created}</td>
+                <td>
+                    <Button
+                        type="button"
+                        variant="primary"
+                        onClick={() => {
+                            editVital(vital._id);
+                        }}
+                    >
+                        Edit
+                    </Button>
+                </td>
             </tr>
         );
     });
@@ -73,6 +91,7 @@ function VitalHistoryView(props) {
                                 <th>Blood Pressure</th>
                                 <th>Repository Rate</th>
                                 <th>Date</th>
+                                <th>Edit</th>
                             </tr>
                             </thead>
                             <tbody className="tr">{displayAllVitalHistoryTable}</tbody>

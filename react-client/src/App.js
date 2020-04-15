@@ -17,6 +17,7 @@ import "./App.css";
 import DailyInfoEdit from "./components/DailyInfoEdit";
 import DailyInfoHistory from "./components/DailyInfoHistory";
 import DailyInfo from "./components/DailyInfo";
+import VitalEdit from "./components/VitalEdit";
 import VitalHistoryView from "./components/VitalHistoryView";
 import VitalHistory from "./components/VitalHistory";
 import VitalSigns from "./components/VitalSigns";
@@ -77,12 +78,14 @@ function App() {
                     <Route render={() => <VitalSigns />} path="/vitalSigns" />
                     <Route render={() => <VitalHistory />} path="/vitalHistory" />
                     <Route render={() => <VitalHistoryView />} path="/vitalHistoryView/:id" />
+                    <Route render={() => <VitalEdit />} path="/vitalEdit/:id" />
                 </React.Fragment>
             ) : (
                 <React.Fragment>
                     <Route render={() => <Login />} path="/vitalSigns" />
                     <Route render={() => <Login />} path="/vitalHistory" />
                     <Route render={() => <Login />} path="/vitalHistoryView/:id" />
+                    <Route render={() => <Login />} path="/vitalEdit/:id" />
                 </React.Fragment>
             )}
             {screen !== "auth" && role === "patient" ? (
@@ -93,7 +96,7 @@ function App() {
                 </React.Fragment>
             ) : (
                 <React.Fragment>
-                   <Route render={() => <Login />} path="/dailyInfo" />
+                    <Route render={() => <Login />} path="/dailyInfo" />
                     <Route render={() => <Login />} path="/dailyInfoHistory" />
                     <Route render={() => <Login />} path="/dailyInfoEdit/:id" />
                 </React.Fragment>
