@@ -23,6 +23,6 @@ exports.heartDiseasePredict = async (req, res) => {
 
   const results = model.predict(testingData);
   results.array().then((array) => {
-    res.json(array[0]);
+    res.json(array[0][0]);
   });
 };
