@@ -14,6 +14,8 @@ import Nav from "react-bootstrap/Nav";
 import "./App.css";
 //
 
+import ViewEmergencyAlerts from "./components/ViewEmergencyAlerts";
+
 import DailyInfoHistory from "./components/DailyInfoHistory";
 import DailyInfo from "./components/DailyInfo";
 import VitalHistoryView from "./components/VitalHistoryView";
@@ -60,7 +62,8 @@ function App() {
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/registerUser">Register</Nav.Link>
-            <Nav.Link href="/sendEmergencyAlert">Register</Nav.Link>
+            <Nav.Link href="/sendEmergencyAlert">Send Emergency Alert</Nav.Link>
+            <Nav.Link href="/viewEmergencyAlerts">View Emergency Alerts</Nav.Link>
             <Nav.Link href="/vitalSigns">Add Vital Signs</Nav.Link>
             <Nav.Link href="/vitalHistory">Vital History</Nav.Link>
             <Nav.Link href="/dailyInfo">Add Daily Info</Nav.Link>
@@ -74,6 +77,7 @@ function App() {
         <Route render={() => <Login />} path="/login" />
         <Route render={() => <RegisterUser />} path="/registerUser" />
         <Route render={() => <SendEmergencyAlert />} path="/sendEmergencyAlert" />
+        <Route render={() => <ViewEmergencyAlerts />} path="/viewEmergencyAlerts" />
 
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
