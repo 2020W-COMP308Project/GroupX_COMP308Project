@@ -72,6 +72,7 @@ module.exports = function () {
   require("../app/routes/clinicalVisit.server.routes.js")(app);
   require("../app/routes/dailyInfo.server.routes.js")(app);
   require("../app/routes/login.server.routes.js")(app);
+  require("../app/routes/ml.server.routes.js")(app);
 
   // Configure static file serving
   app.use(express.static("./public"));
