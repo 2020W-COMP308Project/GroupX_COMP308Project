@@ -84,6 +84,7 @@ function RegisterUser(props) {
                   placeholder="Enter first name"
                   value={user.firstName}
                   onChange={onChange}
+                                  required
                 />
               </Form.Group>
               <Form.Group>
@@ -95,6 +96,7 @@ function RegisterUser(props) {
                   placeholder="Enter last name."
                   value={user.lastName}
                   onChange={onChange}
+                                  required
                 />
               </Form.Group>
               <Form.Group>
@@ -106,6 +108,7 @@ function RegisterUser(props) {
                   placeholder="Enter a user name."
                   value={user.username}
                   onChange={onChange}
+                                  required
                 />
               </Form.Group>
               <Form.Group>
@@ -117,13 +120,14 @@ function RegisterUser(props) {
                   placeholder="Enter password."
                   value={user.password}
                   onChange={onChange}
+                                  required
                 />
                 </Form.Group>
                 <Form.Group>
                           <ButtonToolbar aria-label="buttons for role">
                                 <Form.Label>Role</Form.Label>
                                 <div className="margins-left">
-                                      <ButtonGroup className="mr-4" aria-label="role">
+                                      <ButtonGroup className="mr-4" aria-label="role" required name="role">
                                           <Button variant="outline-success" onClick={e => setUserRole("nurse")}  > Nurse</Button>
                                           <Button variant="outline-danger" onClick={e => setUserRole("patient")} >Patient</Button>
                                       </ButtonGroup>
