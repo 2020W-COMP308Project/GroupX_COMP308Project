@@ -19,6 +19,7 @@ module.exports = function (app) {
 //
 //
   app.get("/users", login.list); 
+  app.get("/patients", login.listPatient); 
   //
   app.route("/api/read_cookie").get(login.isSignedIn);
 
