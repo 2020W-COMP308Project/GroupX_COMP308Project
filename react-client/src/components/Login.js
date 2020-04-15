@@ -36,7 +36,7 @@ function App() {
     try {
       console.log("--- in readCookie function ---");
       //
-      const res = await axios.get("/read_cookie");
+        const res = await axios.get("/api/read_cookie");
       //
       if (res.data.screen !== undefined) {
         setScreen(res.data.screen);

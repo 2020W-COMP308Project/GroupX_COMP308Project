@@ -58,7 +58,7 @@ exports.infoByID = function (req, res, next, id) {
 };
 
 exports.hasAuthorization = function (req, res, next) {
-  if (!req.alert.owner.equals(req.user._id)) {
+  if (!req.alert.owner === req.user._id) {
     return res.status(403).send({
       message: "User is not authorized",
     });

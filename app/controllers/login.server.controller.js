@@ -74,7 +74,7 @@ exports.requiresLogin = function (req, res, next) {
 };
 
 exports.isPatient = function (req, res, next) {
-  if (req.user && req.user.role.equals("patient")) {
+  if (req.user && req.user.role === "patient") {
     next();
   } else {
     return res.status(403).send({
@@ -84,7 +84,7 @@ exports.isPatient = function (req, res, next) {
 };
 
 exports.isNurse = function (req, res, next) {
-  if (req.user && req.user.role.equals("nurse")) {
+  if (req.user && req.user.role === "nurse") {
     next();
   } else {
     return res.status(403).send({
