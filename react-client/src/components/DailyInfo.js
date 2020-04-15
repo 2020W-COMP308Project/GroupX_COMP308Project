@@ -65,7 +65,7 @@ function DailyInfo(props) {
                 setShowError(true);
                 console.log("error: " + showError);
             } else {
-                props.history.push("/home");
+                props.history.push("/dailyInfoHistory");
             }
         })
         .catch((error) => setShowLoading(false));

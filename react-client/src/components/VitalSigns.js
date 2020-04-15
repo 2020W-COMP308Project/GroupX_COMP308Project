@@ -72,7 +72,7 @@ function VitalSigns(props) {
                 setShowError(true);
                 console.log("error: " + showError);
             } else {
-                props.history.push("/home");
+                props.history.push("/vitalHistory");
             }
         })
         .catch((error) => setShowLoading(false));

@@ -74,6 +74,28 @@ function DailyInfoEdit(props) {
         .catch((error) => setShowLoading(false));
     };
 
+    const deleteDailyInfo = id => {
+        const deleteApi = "/api/dailyInfo/" + id;
+        setShowLoading(true);
+        const deletedDailyInfo = {
+            pulseRate: data.pulseRate,
+            bloodPressure: data.bloodPressure,
+            weight: data.weight,
+            temperature: data.temperature,
+            respiratoryRate: data.respiratoryRate,
+            lastModified: data.lastModified,
+            owner: data.patientId,
+            created: data.created
+        };
+        axios
+        .delete(deleteApi, deletedDailyInfo)
+        .then(result => {
+            setShowLoading(false);
+            props.history.push("/dailyInfoHistory");
+        })
+        .catch(error => setShowLoading(false));
+    };
+
     const onChange = (e) => {
         e.persist();
         setData({ ...data, [e.target.name]: e.target.value });
@@ -171,8 +193,17 @@ function DailyInfoEdit(props) {
                             </Form.Group>
                             
                             <div className="text-center">
-                                <Button variant="outline-danger col-6" type="submit">
+                                <Button variant="outline-primary col-4 mr-5" type="submit">
                                     Update
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="outline-danger col-4 ml-5"
+                                    onClick={() => {
+                                        deleteDailyInfo(data._id);
+                                    }}
+                                >
+                                    Delete
                                 </Button>
                             </div>
                         </Form>

@@ -52,29 +52,6 @@ function DailyInfoHistory(props) {
         });
     };
 
-    const deleteDailyInfo = id => {
-        const deleteApi = "/api/dailyInfo/" + id;
-        setShowLoading(true);
-        const dailyInfo = {
-            pulseRate: data.pulseRate,
-            bloodPressure: data.bloodPressure,
-            weight: data.weight,
-            temperature: data.temperature,
-            respiratoryRate: data.respiratoryRate,
-            lastModified: data.lastModified,
-            owner: data.owner,
-            created: data.created
-        };
-        //
-        axios
-        .delete(deleteApi, dailyInfo)
-        .then(result => {
-            setShowLoading(false);
-            props.history.push("/dailyInfoHistory");
-        })
-        .catch(error => setShowLoading(false));
-    };
-
     const displayAllDailyInfoHistoryTable = array.map((dailyInfo, idx) => {
         return (
             <tr key={idx}>
@@ -94,17 +71,6 @@ function DailyInfoHistory(props) {
                         }}
                     >
                         Edit
-                    </Button>
-                </td>
-                <td>
-                    <Button
-                        type="button"
-                        variant="danger"
-                        onClick={() => {
-                            deleteDailyInfo(dailyInfo._id);
-                        }}
-                    >
-                        Delete
                     </Button>
                 </td>
             </tr>
@@ -145,7 +111,6 @@ function DailyInfoHistory(props) {
                                 <th>Last Modified Date</th>
                                 <th>Created Date</th>
                                 <th>Edit</th>
-                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody className="tr">{displayAllDailyInfoHistoryTable}</tbody>
