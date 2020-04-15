@@ -79,7 +79,7 @@ function VitalHistory(props) {
                         There is something wrong...
                         </span>
                     )}
-                    <div className="mt-20">
+                    <div className="p-10">
                         <table className="table table-danger">
                             <thead className="thead-dark">
                             <tr>
@@ -88,7 +88,7 @@ function VitalHistory(props) {
                                 <th>Last Name</th>
                             </tr>
                             </thead>
-                            <tbody className="tr">{displayAllPatientTable}</tbody>
+                            <tbody className="tr p-10">{displayAllPatientTable}</tbody>
                         </table>
                     </div>
                 </div>
