@@ -20,6 +20,7 @@ exports.create = function (req, res) {
 
   alert.owner = req.user._id;
   alert.hasRead = false;
+  alert.created = new Date();
 
   alert.save((err) => {
     if (err) {

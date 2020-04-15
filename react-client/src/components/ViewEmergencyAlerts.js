@@ -8,8 +8,8 @@ function ViewEmergencyAlerts(props) {
     const [showLoading, setShowLoading] = useState(true);
     const [showError, setShowError] = useState(false);
     const apiUrl = "http://localhost:3000/api/alerts";
-    //
-    const nurseId = props.match.params.id
+    // //
+    // const nurseId = props.match.params.id
 
     useEffect(() => {
         setShowLoading(false);
@@ -26,29 +26,36 @@ function ViewEmergencyAlerts(props) {
     let array = [];
 
     data.map(item => {
-        // if (item.owner === nurseId) {
         array.push(item);
         return item;
-        // }
     })
 
     const displayEmergencyAlertTable = array.map((alert, idx) => {
         return (
-            <tr key={idx}>
+            <tr key={idx}
+                onClick={() => {
+                    showDetail(alert._id);
+                }}>
                 <td>{alert.owner}</td>
                 <td>{alert.message}</td>
-                <td>{alert.hasRead}</td>
+                <td>{alert.created}</td>
+                <td>{alert.hasRead ? ("true") : ("false")}</td>
             </tr>
         );
     })
 
+    const showDetail = id => {
+        props.history.push({
+            pathname: "/api/alert/" + id
+        });
+    };
 
     return (
         <div className="container-fluid col-12 justify-content-center">
             <div className="span12 div-style">
                 <div className="bg-danger text-light title">
                     {" "}
-                    <h2 className="h2-style">Patient Vital History</h2>
+                    <h2 className="h2-style">Emegency Alert List</h2>
                 </div>
                 <br />
 

@@ -3,18 +3,13 @@ import axios from "axios";
 import { Spinner, Jumbotron, Form, Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
-
 function SendEmergencyAlert(props) {
 
   // initial values for an alert
   const [alert, setAlert] = useState({
-    message: "Emergency! Emergency!", // default message
-    owner: null,
-    hasRead: false,
-    created: null,
+    message: "Emergency!!", // default message
   });
   const [showLoading, setShowLoading] = useState(false);
-  //  const [userRole, setUserRole] = useState();  
   const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/alert/create";
 
@@ -25,8 +20,6 @@ function SendEmergencyAlert(props) {
     // set a value to each field
     const data = {
       message: alert.message,
-      owner: alert.owner,
-      created: alert.created,
     };
     axios
       .post(apiUrl, data)

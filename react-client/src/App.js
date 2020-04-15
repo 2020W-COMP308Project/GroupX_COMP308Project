@@ -76,6 +76,7 @@ function App() {
         <Route render={() => <Home />} path="/home" />
         <Route render={() => <Login />} path="/login" />
         <Route render={() => <RegisterUser />} path="/registerUser" />
+
         <Route render={() => <SendEmergencyAlert />} path="/sendEmergencyAlert" />
         <Route render={() => <ViewEmergencyAlerts />} path="/viewEmergencyAlerts" />
 
