@@ -65,7 +65,7 @@ function DailyInfoHistory(props) {
                 <td>
                     <Button
                         type="button"
-                        variant="primary"
+                        variant="danger"
                         onClick={() => {
                             editDailyInfo(dailyInfo._id);
                         }}
