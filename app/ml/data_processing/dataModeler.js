@@ -2,6 +2,8 @@ const tf = require("@tensorflow/tfjs");
 const tf_node = require("@tensorflow/tfjs-node");
 const dataset = require("../dataset/heart.json");
 
+const modelSaveLocation = "../model/heart_disease";
+
 const dataFeatures = tf.tensor2d(
   dataset.map((attr) => [
     attr.age > 50 ? 1 : 0,
@@ -61,7 +63,7 @@ const testingData = tf.tensor2d(
 
 model
   .fit(dataFeatures, outputData, {
-    epochs: 50,
+    epochs: 1000,
     callbacks: {
       onEpochEnd: (epoch, log) => {
         console.log(`Epoch ${epoch}: loss = ${log.loss}`);
@@ -70,7 +72,7 @@ model
   })
   .then((info) => {
     // model.predict(testingData).print();
-    model.save("file://../model/heart_disease").then(() => {
+    model.save(`file://` + modelSaveLocation).then(() => {
       console.log("Model successfully saved.");
     });
   });
