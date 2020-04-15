@@ -104,3 +104,15 @@ exports.list = function (req, res, next) {
     }
   });
 };
+
+// Returns all patients
+exports.listPatient = function (req, res, next) {
+    // Use the 'User' instance's 'find' method to retrieve a new user document
+    User.find({"role": "patient"}, function (err, users) {
+        if (err) {
+            return next(err);
+        } else {
+            res.json(users);
+        }
+    });
+};

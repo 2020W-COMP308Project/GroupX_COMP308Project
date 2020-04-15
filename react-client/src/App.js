@@ -13,6 +13,7 @@ import Nav from "react-bootstrap/Nav";
 import "./App.css";
 //
 
+import VitalSigns from "./components/VitalSigns";
 import RegisterUser from "./components/RegisterUser";
 import Login from "./components/Login";
 import Home from "./components/Home";
@@ -30,6 +31,7 @@ function App() {
               <Nav.Link href="/login">Login</Nav.Link>
               <Nav.Link href="/list">List</Nav.Link>
               <Nav.Link href="/registerUser">Register</Nav.Link>
+              <Nav.Link href="/vitalSigns">Add Vital Signs</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -39,6 +41,7 @@ function App() {
           <Route render={() => <Login />} path="/login" />
           <Route render={() => <List />} path="/list" />
           <Route render={() => <RegisterUser />} path="/registerUser" />
+          <Route render={() => <VitalSigns />} path="/vitalSigns" />
         </div>
       </Router>
     );

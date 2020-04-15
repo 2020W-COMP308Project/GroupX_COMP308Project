@@ -6,8 +6,6 @@ const ClinicalVisitSchema = new Schema({
   heartRate: Number,
   bloodPressure: Number,
   respiratoryRate: Number,
-  status: String,
-  date: Date,
   nurse: {
     type: Schema.Types.ObjectId,
     ref: "User",
