@@ -3,6 +3,7 @@ import axios from "axios";
 import { Spinner } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
+
 function VitalHistoryView(props) {
     const [data, setData] = useState([]);
     const [showLoading, setShowLoading] = useState(true);
@@ -46,8 +47,7 @@ function VitalHistoryView(props) {
         <div className="container-fluid col-12 justify-content-center">
             <div className="span12 div-style">
                 <div className="bg-danger text-light title">
-                {" "}
-                <h2 className="h2-style">Patient Vital History</h2>
+                    <h2 className="h2-style">Patient Vital History</h2>
                 </div>
                 <br />
 
@@ -65,7 +65,7 @@ function VitalHistoryView(props) {
                     )}
                     
                     <div className="mb-20">
-                        <table className="table table-primary">
+                        <table className="table table-danger">
                             <thead className="thead-dark">
                             <tr>
                                 <th>Body Temperature</th>

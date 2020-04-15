@@ -80,7 +80,7 @@ function VitalHistory(props) {
                         </span>
                     )}
                     <div className="mt-20">
-                        <table className="table table-primary">
+                        <table className="table table-danger">
                             <thead className="thead-dark">
                             <tr>
                                 <th>Username</th>
