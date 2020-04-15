@@ -49,7 +49,7 @@ exports.welcome = function (req, res) {
     return res.send({ screen: "auth" }).end();
   }
   res.status(200).send({
-    screen: `Welcome user: ${req.user.username}!`,
+    screen: req.user._id
   });
 };
 
@@ -61,9 +61,9 @@ exports.signout = function (req, res) {
 
 exports.isSignedIn = (req, res) => {
   if (!req.user) {
-    return res.send({ screen: "auth" }).end();
+    return res.send({ screen: "auth", role: "auth" }).end();
   }
-  return res.send({ screen: `Welcome user: ${req.user.username}!` }).end();
+  return res.send({ screen: req.user._id, role: req.user.role }).end();
 };
 
 exports.requiresLogin = function (req, res, next) {
@@ -103,4 +103,16 @@ exports.list = function (req, res, next) {
       res.json(users);
     }
   });
+};
+
+// Returns all patients
+exports.listPatient = function (req, res, next) {
+    // Use the 'User' instance's 'find' method to retrieve a new user document
+    User.find({"role": "patient"}, function (err, users) {
+        if (err) {
+            return next(err);
+        } else {
+            res.json(users);
+        }
+    });
 };

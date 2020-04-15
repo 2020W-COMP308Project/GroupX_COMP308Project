@@ -34,7 +34,7 @@ function List(props) {
             <span className="sr-only">Loading...</span>
           </Spinner>
         )}
-        <h5 class="paddings">Click on user to see user details.</h5>
+        <h5 className="paddings">Click on user to see user details.</h5>
         <ListGroup>
           {data.map((item, idx) => (
             <ListGroup.Item
