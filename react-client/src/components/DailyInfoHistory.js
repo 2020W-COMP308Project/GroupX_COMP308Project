@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
 
 function DailyInfoHistory(props) {
@@ -45,6 +46,12 @@ function DailyInfoHistory(props) {
         }
     });
 
+    const editDailyInfo = id => {
+        props.history.push({
+            pathname: "/dailyInfoEdit/" + id
+        });
+    };
+
     const displayAllDailyInfoHistoryTable = array.map((dailyInfo, idx) => {
         return (
             <tr key={idx}>
@@ -55,6 +62,17 @@ function DailyInfoHistory(props) {
                 <td>{dailyInfo.respiratoryRate}</td>
                 <td>{dailyInfo.lastModified}</td>
                 <td>{dailyInfo.created}</td>
+                <td>
+                    <Button
+                        type="button"
+                        variant="primary"
+                        onClick={() => {
+                            editDailyInfo(dailyInfo._id);
+                        }}
+                    >
+                        Edit
+                    </Button>
+                </td>
             </tr>
         );
     });
@@ -92,6 +110,7 @@ function DailyInfoHistory(props) {
                                 <th>Repository Rate</th>
                                 <th>Last Modified Date</th>
                                 <th>Created Date</th>
+                                <th>Edit</th>
                             </tr>
                             </thead>
                             <tbody className="tr">{displayAllDailyInfoHistoryTable}</tbody>

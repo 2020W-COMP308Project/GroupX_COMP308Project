@@ -14,6 +14,7 @@ import Nav from "react-bootstrap/Nav";
 import "./App.css";
 //
 
+import DailyInfoEdit from "./components/DailyInfoEdit";
 import DailyInfoHistory from "./components/DailyInfoHistory";
 import DailyInfo from "./components/DailyInfo";
 import VitalHistoryView from "./components/VitalHistoryView";
@@ -88,11 +89,13 @@ function App() {
                 <React.Fragment>
                     <Route render={() => <DailyInfo />} path="/dailyInfo" />
                     <Route render={() => <DailyInfoHistory />} path="/dailyInfoHistory" />
+                    <Route render={() => <DailyInfoEdit />} path="/dailyInfoEdit/:id" />
                 </React.Fragment>
             ) : (
                 <React.Fragment>
                    <Route render={() => <Login />} path="/dailyInfo" />
                     <Route render={() => <Login />} path="/dailyInfoHistory" />
+                    <Route render={() => <Login />} path="/dailyInfoEdit/:id" />
                 </React.Fragment>
             )}
         </div>
