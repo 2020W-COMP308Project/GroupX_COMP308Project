@@ -1,23 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Spinner, Jumbotron, Form, Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
 
 function SendEmergencyAlert(props) {
+  // //state variable for the screen, admin or user
+  // const [userId, setUserId] = useState("auth");
+
+  // //check if the user already logged-in
+  // const readCookie = async () => {
+  //   try {
+  //     console.log("--- in readCookie function ---");
+  //     //
+  //     const res = await axios.get("/api/read_cookie");
+  //     //
+  //     if (res.data.userId !== undefined) {
+  //       setUserId(res.data.userId);
+  //       console.log(res.data.userId);
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+  // //runs the first time the view is rendered
+  // //to check if user is signed in
+  // useEffect(() => {
+  //   readCookie();
+  // }, []); //only the first render
+  // //
+
   // initial values for an alert
   const [alert, setAlert] = useState({
     message: "Emergency! Emergency!",
-    owner: "", //
+    owner: null, //
     hasRead: false,
     created: "",
   });
   const [showLoading, setShowLoading] = useState(false);
-  const [userRole, setUserRole] = useState();
+  //  const [userRole, setUserRole] = useState();  
   const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/alert/create";
 
   const saveAlert = (e) => {
+
     setShowLoading(true);
     e.preventDefault();
     // set a value to each field
