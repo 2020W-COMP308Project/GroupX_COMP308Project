@@ -14,6 +14,7 @@ import Nav from "react-bootstrap/Nav";
 import "./App.css";
 //
 
+import DiseasePredictor from "./components/DiseasePredictor";
 import DailyInfoEdit from "./components/DailyInfoEdit";
 import DailyInfoHistory from "./components/DailyInfoHistory";
 import DailyInfo from "./components/DailyInfo";
@@ -29,6 +30,13 @@ import Home from "./components/Home";
 function App() {
   const [screen, setScreen] = useState("auth");
   const [role, setRole] = useState("auth");
+  // [Frank] changing this value forces a re-render
+  // [Frank] horrible pattern, don't do this in prod, but it forces a re-render on login/logout
+  const [rerender, setRerender] = useState(false);
+
+  const updateLogin = () => {
+    setRerender(!rerender);
+  };
 
   const readCookie = async () => {
     try {
@@ -50,7 +58,7 @@ function App() {
 
   useEffect(() => {
     readCookie();
-  }, []);
+  });
 
   return (
     <Router>
@@ -65,13 +73,18 @@ function App() {
             <Nav.Link href="/vitalHistory">Vital History</Nav.Link>
             <Nav.Link href="/dailyInfo">Add Daily Info</Nav.Link>
             <Nav.Link href="/dailyInfoHistory">Daily Info History</Nav.Link>
+            {screen !== "auth" && role === "patient" && (
+              <Nav.Link href="/predict/heartdisease">
+                Predict Heart Disease
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
 
       <div>
         <Route render={() => <Home />} path="/home" />
-        <Route render={() => <Login />} path="/login" />
+        <Route render={() => <Login rerender={updateLogin} />} path="/login" />
         <Route render={() => <RegisterUser />} path="/registerUser" />
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
@@ -85,10 +98,22 @@ function App() {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Route render={() => <Login />} path="/vitalSigns" />
-            <Route render={() => <Login />} path="/vitalHistory" />
-            <Route render={() => <Login />} path="/vitalHistoryView/:id" />
-            <Route render={() => <Login />} path="/vitalEdit/:id" />
+            <Route
+              render={() => <Login rerender={updateLogin} />}
+              path="/vitalSigns"
+            />
+            <Route
+              render={() => <Login rerender={updateLogin} />}
+              path="/vitalHistory"
+            />
+            <Route
+              render={() => <Login rerender={updateLogin} />}
+              path="/vitalHistoryView/:id"
+            />
+            <Route
+              render={() => <Login rerender={updateLogin} />}
+              path="/vitalEdit/:id"
+            />
           </React.Fragment>
         )}
         {screen !== "auth" && role === "patient" ? (
@@ -99,12 +124,29 @@ function App() {
               path="/dailyInfoHistory"
             />
             <Route render={() => <DailyInfoEdit />} path="/dailyInfoEdit/:id" />
+            <Route
+              render={() => <DiseasePredictor />}
+              path="/predict/heartdisease"
+            />
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Route render={() => <Login />} path="/dailyInfo" />
-            <Route render={() => <Login />} path="/dailyInfoHistory" />
-            <Route render={() => <Login />} path="/dailyInfoEdit/:id" />
+            <Route
+              render={() => <Login rerender={updateLogin} />}
+              path="/dailyInfo"
+            />
+            <Route
+              render={() => <Login rerender={updateLogin} />}
+              path="/dailyInfoHistory"
+            />
+            <Route
+              render={() => <Login rerender={updateLogin} />}
+              path="/dailyInfoEdit/:id"
+            />
+            <Route
+              render={() => <Login rerender={updateLogin} />}
+              path="/predict/heartdisease"
+            />
           </React.Fragment>
         )}
       </div>
