@@ -47,20 +47,6 @@ model.compile({
   metrics: ["accuracy"],
 });
 
-const testData = require("../dataset/testData.json");
-const testingData = tf.tensor2d(
-  testData.map((attr) => [
-    attr.age > 50 ? 1 : 0,
-    attr.cp > 0 ? 1 : 0,
-    attr.sex,
-    attr.trestbps,
-    attr.chol,
-    attr.thalach,
-    attr.fbs,
-    attr.exang,
-  ])
-);
-
 model
   .fit(dataFeatures, outputData, {
     epochs: 1000,
@@ -71,7 +57,6 @@ model
     },
   })
   .then((info) => {
-    // model.predict(testingData).print();
     model.save(`file://` + modelSaveLocation).then(() => {
       console.log("Model successfully saved.");
     });

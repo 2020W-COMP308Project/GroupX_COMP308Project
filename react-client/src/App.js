@@ -28,7 +28,7 @@ function App() {
   const [screen, setScreen] = useState("auth");
   const [role, setRole] = useState("auth");
   // [Frank] changing this value forces a re-render
-  // [Frank] horrible pattern, don't do this in prod, but it forces a re-render on login/logout
+  // [Frank] horrible pattern, very very bad, don't do this in prod, but it forces a re-render on login/logout
   const [rerender, setRerender] = useState(false);
 
   const readCookie = async () => {
@@ -115,7 +115,7 @@ function App() {
               render={() => <DailyInfoHistory />}
               path="/dailyInfoHistory"
             />
-            <Router
+            <Route
               render={() => <DiseasePredictor />}
               path="/predict/heartdisease"
             />
