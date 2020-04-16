@@ -100,7 +100,7 @@ function DailyInfoHistory(props) {
                     )}
                     
                     <div className="mb-20">
-                        <table className="table table-primary">
+                        <table className="table table-danger">
                             <thead className="thead-dark">
                             <tr>
                                 <th>Pulse Rate</th>
