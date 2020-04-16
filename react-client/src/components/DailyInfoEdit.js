@@ -3,8 +3,22 @@ import axios from "axios";
 import { Spinner, Jumbotron, Form, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
-function DailyInfo(props) {
+function DailyInfoEdit(props) {
     const [screen, setScreen] = useState("auth");
+    const [data, setData] = useState({
+        _id: "",
+        pulseRate: "",
+        bloodPressure: "",
+        weight: "",
+        temperature: "",
+        respiratoryRate: "",
+        lastModified: "",
+        owner: "",
+        created: ""
+    });
+    const [showLoading, setShowLoading] = useState(true);
+    const [showError, setShowError] = useState(false);
+    const apiUrl = "http://localhost:3000/api/dailyInfo/" + props.match.params.id;
 
     const readCookie = async () => {
         try {
@@ -20,45 +34,34 @@ function DailyInfo(props) {
     };
 
     useEffect(() => {
+        setShowLoading(false);
+        const fetchData = async () => {
+            const result = await axios(apiUrl);
+            setData(result.data);
+            setShowLoading(false);
+        };
+
         readCookie();
+        fetchData();
     }, []);
 
-    let patientId = screen;
-
-    const [dailyInfo, setDailyInfo] = useState({
-        _id: "",
-        pulseRate: "",
-        bloodPressure: "",
-        weight: "",
-        temperature: "",
-        respiratoryRate: "",
-        lastModified: "",
-        owner: "",
-        created: ""
-    });
-
-    const [showLoading, setShowLoading] = useState(false);
-    const [showError, setShowError] = useState(false);
-
-    const apiUrl = "http://localhost:3000/api/dailyInfo/create";
-
-    const saveDailyInfo = (e) => {
+    const updateDailyInfo = (e) => {
         setShowLoading(true);
         let currDateTime = new Date();
         e.preventDefault();
-        const data = {
-            pulseRate: dailyInfo.pulseRate,
-            bloodPressure: dailyInfo.bloodPressure,
-            weight: dailyInfo.weight,
-            temperature: dailyInfo.temperature,
-            respiratoryRate: dailyInfo.respiratoryRate,
+        const updatedDailyInfo = {
+            pulseRate: data.pulseRate,
+            bloodPressure: data.bloodPressure,
+            weight: data.weight,
+            temperature: data.temperature,
+            respiratoryRate: data.respiratoryRate,
             lastModified: currDateTime,
-            owner: patientId,
-            created: currDateTime
+            owner: data.patientId,
+            created: data.created
         };
 
         axios
-        .post(apiUrl, data)
+        .put(apiUrl, updatedDailyInfo)
         .then((result) => {
             setShowLoading(false);
             if (result.data.screen === "error") {
@@ -71,9 +74,31 @@ function DailyInfo(props) {
         .catch((error) => setShowLoading(false));
     };
 
+    const deleteDailyInfo = id => {
+        const deleteApi = "/api/dailyInfo/" + id;
+        setShowLoading(true);
+        const deletedDailyInfo = {
+            pulseRate: data.pulseRate,
+            bloodPressure: data.bloodPressure,
+            weight: data.weight,
+            temperature: data.temperature,
+            respiratoryRate: data.respiratoryRate,
+            lastModified: data.lastModified,
+            owner: data.patientId,
+            created: data.created
+        };
+        axios
+        .delete(deleteApi, deletedDailyInfo)
+        .then(result => {
+            setShowLoading(false);
+            props.history.push("/dailyInfoHistory");
+        })
+        .catch(error => setShowLoading(false));
+    };
+
     const onChange = (e) => {
         e.persist();
-        setDailyInfo({ ...dailyInfo, [e.target.name]: e.target.value });
+        setData({ ...data, [e.target.name]: e.target.value });
     };
 
     return (
@@ -96,7 +121,7 @@ function DailyInfo(props) {
                         </span>
                     )}
                     <Jumbotron className="bg-light">
-                        <Form onSubmit={saveDailyInfo}>
+                        <Form onSubmit={updateDailyInfo}>
                             <Form.Group>
                                 <Form.Label>Pulse Rate (per minute)</Form.Label>
                                 <Form.Control
@@ -106,7 +131,7 @@ function DailyInfo(props) {
                                 placeholder="E.g. 80"
                                 min="1"
                                 step="1"
-                                value={dailyInfo.pulseRate}
+                                value={data.pulseRate}
                                 onChange={onChange}
                                 required
                                 />
@@ -119,7 +144,7 @@ function DailyInfo(props) {
                                 id="bloodPressure"
                                 placeholder="E.g. 120/80"
                                 pattern="^\d{2,3}\/\d{2,3}$"
-                                value={dailyInfo.bloodPressure}
+                                value={data.bloodPressure}
                                 onChange={onChange}
                                 required
                                 />
@@ -133,7 +158,7 @@ function DailyInfo(props) {
                                 placeholder="E.g. 180.5"
                                 min="1"
                                 step="0.1"
-                                value={dailyInfo.weight}
+                                value={data.weight}
                                 onChange={onChange}
                                 required
                                 />
@@ -147,7 +172,7 @@ function DailyInfo(props) {
                                 placeholder="E.g. 36.5"
                                 min="1"
                                 step="0.1"
-                                value={dailyInfo.temperature}
+                                value={data.temperature}
                                 onChange={onChange}
                                 required
                                 />
@@ -161,15 +186,24 @@ function DailyInfo(props) {
                                 placeholder="E.g. 16"
                                 min="1"
                                 step="1"
-                                value={dailyInfo.respiratoryRate}
+                                value={data.respiratoryRate}
                                 onChange={onChange}
                                 required
                                 />
                             </Form.Group>
                             
                             <div className="text-center">
-                                <Button variant="outline-danger col-6" type="submit">
-                                    Save
+                                <Button variant="outline-primary col-4 mr-5" type="submit">
+                                    Update
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="outline-danger col-4 ml-5"
+                                    onClick={() => {
+                                        deleteDailyInfo(data._id);
+                                    }}
+                                >
+                                    Delete
                                 </Button>
                             </div>
                         </Form>
@@ -180,4 +214,4 @@ function DailyInfo(props) {
     );
 }
 
-export default withRouter(DailyInfo);
+export default withRouter(DailyInfoEdit);

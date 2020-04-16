@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const DailyInfoSchema = new Schema({
   pulseRate: Number,
-  bloodPressure: Number,
+  bloodPressure: String,
   weight: Number,
   temperature: Number,
   respiratoryRate: Number,

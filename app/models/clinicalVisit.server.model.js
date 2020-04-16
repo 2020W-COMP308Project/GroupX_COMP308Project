@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ClinicalVisitSchema = new Schema({
   bodyTemperature: Number,
   heartRate: Number,
-  bloodPressure: Number,
+  bloodPressure: String,
   respiratoryRate: Number,
   nurse: {
     type: Schema.Types.ObjectId,

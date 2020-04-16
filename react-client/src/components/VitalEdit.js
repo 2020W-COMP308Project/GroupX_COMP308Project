@@ -3,38 +3,8 @@ import axios from "axios";
 import { Spinner, Jumbotron, Form, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
-function VitalSigns(props) {
-    const [screen, setScreen] = useState("auth");
-
-    const readCookie = async () => {
-        try {
-            const res = await axios.get("/api/read_cookie");
-
-            if (res.data.screen !== undefined) {
-                setScreen(res.data.screen);
-            }
-        } catch (e) {
-            setScreen("auth");
-            console.log(e);
-        }
-    };
-
-    const [patient, setPatient] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios("http://localhost:3000/patients");
-            setPatient(result.data);
-            setShowLoading(false);
-        };
-
-        readCookie();
-        fetchData();
-    }, []);
-
-    const nurseId = screen;
-
-    const [vital, setVital] = useState({
+function VitalEdit(props) {
+    const [data, setData] = useState({
         _id: "",
         bodyTemperature: "",
         heartRate: "",
@@ -44,43 +14,72 @@ function VitalSigns(props) {
         patient: "",
         created: "",
     });
-
-    const [showLoading, setShowLoading] = useState(false);
+    const [showLoading, setShowLoading] = useState(true);
     const [showError, setShowError] = useState(false);
+    const apiUrl = "http://localhost:3000/api/clinicalVisit/" + props.match.params.id;
 
-    const apiUrl = "http://localhost:3000/api/clinicalVisit/create";
+    useEffect(() => {
+        setShowLoading(false);
+        const fetchData = async () => {
+            const result = await axios(apiUrl);
+            setData(result.data);
+            setShowLoading(false);
+        };
 
-    const saveVital = (e) => {
+        fetchData();
+    }, []);
+
+    const updateVital = (e) => {
         setShowLoading(true);
-        let currDateTime = new Date();
         e.preventDefault();
-        const data = {
-            bodyTemperature: vital.bodyTemperature,
-            heartRate: vital.heartRate,
-            bloodPressure: vital.bloodPressure,
-            respiratoryRate: vital.respiratoryRate,
-            nurse: nurseId,
-            patient: vital.patient,
-            created: currDateTime
+        const updatedDailyInfo = {
+            bodyTemperature: data.bodyTemperature,
+            heartRate: data.heartRate,
+            bloodPressure: data.bloodPressure,
+            respiratoryRate: data.respiratoryRate,
+            nurse: data.nurseId,
+            patient: data.patient,
+            created: data.created
         };
 
         axios
-        .post(apiUrl, data)
+        .put(apiUrl, updatedDailyInfo)
         .then((result) => {
             setShowLoading(false);
             if (result.data.screen === "error") {
                 setShowError(true);
                 console.log("error: " + showError);
             } else {
-                props.history.push("/vitalHistory");
+                props.history.push("/vitalHistoryView/" + data.patient);
             }
         })
         .catch((error) => setShowLoading(false));
     };
 
+    const deleteVital = id => {
+        const deleteApi = "/api/clinicalVisit/" + id;
+        setShowLoading(true);
+        const deletedVital = {
+            bodyTemperature: data.bodyTemperature,
+            heartRate: data.heartRate,
+            bloodPressure: data.bloodPressure,
+            respiratoryRate: data.respiratoryRate,
+            nurse: data.nurseId,
+            patient: data.patient,
+            created: data.created
+        };
+        axios
+        .delete(deleteApi, deletedVital)
+        .then(result => {
+            setShowLoading(false);
+            props.history.push("/vitalHistoryView/" + data.patient);
+        })
+        .catch(error => setShowLoading(false));
+    };
+
     const onChange = (e) => {
         e.persist();
-        setVital({ ...vital, [e.target.name]: e.target.value });
+        setData({ ...data, [e.target.name]: e.target.value });
     };
 
     return (
@@ -88,7 +87,7 @@ function VitalSigns(props) {
             <div className="span12 div-style">
                 <div className="bg-danger text-light title">
                     {" "}
-                    <h2 className="h2-style">Add Vital Signs</h2>
+                    <h2 className="h2-style">Add My Daily Info</h2>
                 </div>
 
                 {showLoading && (
@@ -103,7 +102,7 @@ function VitalSigns(props) {
                         </span>
                     )}
                     <Jumbotron className="bg-light">
-                        <Form onSubmit={saveVital}>
+                        <Form onSubmit={updateVital}>
                             <Form.Group>
                                 <Form.Label>Body Temperature (°C)</Form.Label>
                                 <Form.Control
@@ -113,7 +112,7 @@ function VitalSigns(props) {
                                 placeholder="E.g. 36.5"
                                 min="1"
                                 step="0.1"
-                                value={vital.bodyTemperature}
+                                value={data.bodyTemperature}
                                 onChange={onChange}
                                 required
                                 />
@@ -127,7 +126,7 @@ function VitalSigns(props) {
                                 placeholder="E.g. 80"
                                 min="1"
                                 step="1"
-                                value={vital.heartRate}
+                                value={data.heartRate}
                                 onChange={onChange}
                                 required
                                 />
@@ -140,7 +139,7 @@ function VitalSigns(props) {
                                 id="bloodPressure"
                                 placeholder="E.g. 120/80"
                                 pattern="^\d{2,3}\/\d{2,3}$"
-                                value={vital.bloodPressure}
+                                value={data.bloodPressure}
                                 onChange={onChange}
                                 required
                                 />
@@ -154,40 +153,24 @@ function VitalSigns(props) {
                                 placeholder="E.g. 16"
                                 min="1"
                                 step="1"
-                                value={vital.respiratoryRate}
+                                value={data.respiratoryRate}
                                 onChange={onChange}
                                 required
                                 />
                             </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Patient</Form.Label>
-                                <Form.Control as="select"
-                                name="patient"
-                                id="patient"
-                                value={vital.patient}
-                                onChange={onChange}
-                                required>
-                                <option selected disabled value="">Please select a patient below</option>
-                                {patient.map((item, idx) => (
-                                    <option
-                                        key={idx}
-                                        value={item._id}
-                                    >
-                                    {
-                                        "Name: " +
-                                        item.lastName +
-                                        ", " +
-                                        item.firstName + 
-                                        " | Username: " +
-                                        item.username
-                                    }
-                                    </option>
-                                ))}
-                                </Form.Control>
-                            </Form.Group>
+                            
                             <div className="text-center">
-                                <Button variant="outline-danger col-6" type="submit">
-                                    Save
+                                <Button variant="outline-primary col-4 mr-5" type="submit">
+                                    Update
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="outline-danger col-4 ml-5"
+                                    onClick={() => {
+                                        deleteVital(data._id);
+                                    }}
+                                >
+                                    Delete
                                 </Button>
                             </div>
                         </Form>
@@ -198,4 +181,4 @@ function VitalSigns(props) {
     );
 }
 
-export default withRouter(VitalSigns);
+export default withRouter(VitalEdit);
