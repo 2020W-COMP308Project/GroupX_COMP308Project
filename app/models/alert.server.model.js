@@ -6,7 +6,7 @@ const AlertSchema = new Schema({
     type: String,
     required: "Message is required"
   },
-  hasRead: Boolean,
+  unread: Boolean,
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User"

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Spinner, Jumbotron, Form, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
-function ViewEmergencyAlert(props) {
+function EmergencyAlertView(props) {
     // patient list
     const [dataPatients, setPatientData] = useState([]);
     const apiUrlPatient = "http://localhost:3000/patients";
@@ -13,41 +13,35 @@ function ViewEmergencyAlert(props) {
         owner: "",
         message: "",
         created: null,
-        hasRead: false,
+        unread: true,
     });
     const apiUrl = "http://localhost:3000/api/alert/" + props.match.params.id;
-
     // loading
     const [showLoading, setShowLoading] = useState(true);
     const [showError, setShowError] = useState(false);
 
-
     useEffect(() => {
         setShowLoading(false);
         const fetchData = async () => {
-            // call patient api
-            const resultPatient = await axios(apiUrlPatient);
-            //            console.log(resultPatient.data);
-            setPatientData(resultPatient.data);
-
             // call alert api
             const result = await axios(apiUrl);
-            console.log(result.data);
             setData(result.data);
-
+            // call patient api
+            const resultPatient = await axios(apiUrlPatient);
+            setPatientData(resultPatient.data);
             // loading ends
             setShowLoading(false);
         };
-
         fetchData();
     }, []);
 
-
-    const showDetail = id => {
-        props.history.push({
-            pathname: "/viewEmergencyAlert/" + id
-        });
-    };
+    const displayPatientName = dataPatients.map(item => {
+        if (item._id === data.owner) {
+            return item.firstName[0].toUpperCase() + item.firstName.slice(1)
+                + " "
+                + item.lastName[0].toUpperCase() + item.lastName.slice(1);
+        }
+    }).pop();
 
     return (
 
@@ -55,7 +49,7 @@ function ViewEmergencyAlert(props) {
             <div className="col-6 div-style">
                 <div className="bg-danger text-light title">
                     {" "}
-                    <h2 className="h2-style">Emegency Alert List</h2>
+                    <h2 className="h2-style">Emegency Alert</h2>
                 </div>
                 <br />
 
@@ -75,6 +69,19 @@ function ViewEmergencyAlert(props) {
                         <Form>
                             <Form.Group>
                                 <Form.Label className="font-weight-bold">
+                                    Patient Name
+                                </Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    rows="10"
+                                    name="patientName"
+                                    id="patientName"
+                                    value={displayPatientName}
+                                    readOnly
+                                />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label className="font-weight-bold">
                                     Date
                                 </Form.Label>
                                 <Form.Control
@@ -82,7 +89,7 @@ function ViewEmergencyAlert(props) {
                                     rows="10"
                                     name="created"
                                     id="created"
-                                    value={data.created}
+                                    value={String(data.created).replace('T', ' ').slice(0, 19)}
                                     readOnly
                                 />
                             </Form.Group>
@@ -102,14 +109,11 @@ function ViewEmergencyAlert(props) {
                             </Form.Group>
 
                             <div className="text-center">
-                                <a className="outline-danger col-6" href="/viewEmergencyAlerts">View Alert List</a>
+                                <a className="btn btn-outline-danger col-6" href="/emergencyAlertList">View Alert List</a>
                             </div>
-
 
                         </Form>
                     </Jumbotron>
-
-
 
                 </div>
             </div>
@@ -118,4 +122,4 @@ function ViewEmergencyAlert(props) {
 
 }
 
-export default withRouter(ViewEmergencyAlert);
+export default withRouter(EmergencyAlertView);

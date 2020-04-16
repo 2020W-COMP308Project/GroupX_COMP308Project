@@ -29,7 +29,7 @@ function SendEmergencyAlert(props) {
           setShowError(true);
           console.log("error: " + showError);
         } else {
-          props.history.push("/api/alerts");
+          props.history.push("/emergencyAlertList");
         }
       })
       .catch((error) => setShowLoading(false));

@@ -14,8 +14,8 @@ import Nav from "react-bootstrap/Nav";
 import "./App.css";
 //
 
-import ViewEmergencyAlerts from "./components/ViewEmergencyAlerts";
-import ViewEmergencyAlert from "./components/ViewEmergencyAlert";
+import EmergencyAlertList from "./components/EmergencyAlertList";
+import EmergencyAlertView from "./components/EmergencyAlertView";
 import DailyInfoEdit from "./components/DailyInfoEdit";
 import DailyInfoHistory from "./components/DailyInfoHistory";
 import DailyInfo from "./components/DailyInfo";
@@ -65,7 +65,7 @@ function App() {
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/registerUser">Register</Nav.Link>
             <Nav.Link href="/sendEmergencyAlert">Send Emergency Alert</Nav.Link>
-            <Nav.Link href="/viewEmergencyAlerts">View Emergency Alerts</Nav.Link>
+            <Nav.Link href="/emergencyAlertList">Emergency Alerts</Nav.Link>
             <Nav.Link href="/vitalSigns">Add Vital Signs</Nav.Link>
             <Nav.Link href="/vitalHistory">Vital History</Nav.Link>
             <Nav.Link href="/dailyInfo">Add Daily Info</Nav.Link>
@@ -86,11 +86,11 @@ function App() {
           )}
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
-            <Route render={() => <ViewEmergencyAlerts />} path="/viewEmergencyAlerts" />
-            <Route render={() => <ViewEmergencyAlert />} path="/viewEmergencyAlert/:id" />
+            <Route render={() => <EmergencyAlertList />} path="/emergencyAlertList" />
+            <Route render={() => <EmergencyAlertView />} path="/emergencyAlertView/:id" />
           </React.Fragment>
         ) : (
-            <Route render={() => <Login />} path="/viewEmergencyAlerts" />
+            <Route render={() => <EmergencyAlertList />} path="/emergencyAlertList" />
           )}
 
         {screen !== "auth" && role === "nurse" ? (

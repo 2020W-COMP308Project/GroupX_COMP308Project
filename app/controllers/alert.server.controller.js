@@ -19,7 +19,7 @@ exports.create = function (req, res) {
   const alert = new Alert(req.body);
 
   alert.owner = req.user._id;
-  alert.hasRead = false;
+  alert.unread = true;
   alert.created = new Date();
 
   alert.save((err) => {
@@ -35,8 +35,8 @@ exports.create = function (req, res) {
 
 exports.list = function (req, res) {
   Alert.find()
+    .sort({ created: -1 })
     .sort("-owner")
-    .sort("-created")
     .exec((err, alerts) => {
       if (err) {
         return res.status(400).send({
@@ -68,8 +68,16 @@ exports.hasAuthorization = function (req, res, next) {
 };
 
 exports.read = function (req, res) {
-  res.status(200).json(req.alert);
+  // update read item
+  Alert.findByIdAndUpdate({ _id: req.alertId }, { unread: false }, function (
+    err,
+    alert
+  ) {
+    if (err) return next(err);
+    res.json(alert);
+  });
 };
+
 
 exports.update = function (req, res) {
   Alert.findByIdAndUpdate({ _id: req.alertId }, req.body, function (
