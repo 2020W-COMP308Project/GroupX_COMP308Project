@@ -4,8 +4,9 @@ import axios from "axios";
 //
 import View from "./View";
 import List from "./List";
+import { withRouter } from "react-router-dom";
 //
-function App() {
+function App(props) {
   //state variable for the screen, admin or user
   const [screen, setScreen] = useState("auth");
   //store input field data, user name and password
@@ -24,6 +25,7 @@ function App() {
       if (res.data.screen !== undefined) {
         setScreen(res.data.screen);
         console.log(res.data.screen);
+        props.rerender();
       }
     } catch (e) {
       //print the error
@@ -36,7 +38,7 @@ function App() {
     try {
       console.log("--- in readCookie function ---");
       //
-        const res = await axios.get("/api/read_cookie");
+      const res = await axios.get("/api/read_cookie");
       //
       if (res.data.screen !== undefined) {
         setScreen(res.data.screen);
@@ -90,11 +92,15 @@ function App() {
             </div>
           </div>
         ) : (
-          <View screen={screen} setScreen={setScreen} />
+          <View
+            screen={screen}
+            setScreen={setScreen}
+            rerender={props.rerender}
+          />
         )}
       </div>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);
