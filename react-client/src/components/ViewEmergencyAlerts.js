@@ -4,41 +4,56 @@ import { Spinner } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
 function ViewEmergencyAlerts(props) {
+    // patient list
+    const [dataPatients, setPatientsData] = useState([]);
+    const apiUrlPatients = "http://localhost:3000/patients";
+    // alert list
     const [data, setData] = useState([]);
+    const apiUrl = "http://localhost:3000/api/alerts";
+    // loading
     const [showLoading, setShowLoading] = useState(true);
     const [showError, setShowError] = useState(false);
-    const apiUrl = "http://localhost:3000/api/alerts";
-    // //
-    // const nurseId = props.match.params.id
 
     useEffect(() => {
         setShowLoading(false);
         const fetchData = async () => {
+            // call patient api
+            const resultPatients = await axios(apiUrlPatients);
+            console.log(resultPatients.data);
+            setPatientsData(resultPatients.data);
+
+            // call alert api
             const result = await axios(apiUrl);
             console.log(result.data);
             setData(result.data);
+
+            // loading ends
             setShowLoading(false);
         };
 
         fetchData();
     }, []);
 
-    let array = [];
 
-    data.map(item => {
-        array.push(item);
-        return item;
-    })
+    //
+    const displayEmergencyAlertTable = data.map((item, idx) => {
+        let patient = dataPatients.find(i => i._id === item.owner);
 
-    const displayEmergencyAlertTable = array.map((alert, idx) => {
+        let alert = {
+            patientName: patient.firstName + " " + patient.lastName,
+            message: item.message,
+            created: String(item.created).replace('T', ' ').slice(0, 19),
+            hasRed: item.hasRead,
+        }
+
         return (
             <tr key={idx}
                 onClick={() => {
                     showDetail(alert._id);
                 }}>
-                <td>{alert.owner}</td>
-                <td>{alert.message}</td>
                 <td>{alert.created}</td>
+                <td>{alert.patientName}</td>
+                <td>{alert.message}</td>
                 <td>{alert.hasRead ? ("true") : ("false")}</td>
             </tr>
         );
@@ -46,7 +61,7 @@ function ViewEmergencyAlerts(props) {
 
     const showDetail = id => {
         props.history.push({
-            pathname: "/api/alert/" + id
+            pathname: "/viewEmergencyAlert/" + id
         });
     };
 
@@ -76,9 +91,9 @@ function ViewEmergencyAlerts(props) {
                         <table className="table table-primary">
                             <thead className="thead-dark">
                                 <tr>
-                                    <th>Patient</th>
-                                    <th>Messsage</th>
                                     <th>Date</th>
+                                    <th>Patient Name</th>
+                                    <th>Messsage</th>
                                     <th>Read</th>
                                 </tr>
                             </thead>

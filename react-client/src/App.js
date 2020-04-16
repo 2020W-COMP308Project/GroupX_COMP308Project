@@ -15,6 +15,7 @@ import "./App.css";
 //
 
 import ViewEmergencyAlerts from "./components/ViewEmergencyAlerts";
+import ViewEmergencyAlert from "./components/ViewEmergencyAlert";
 import DailyInfoEdit from "./components/DailyInfoEdit";
 import DailyInfoHistory from "./components/DailyInfoHistory";
 import DailyInfo from "./components/DailyInfo";
@@ -78,8 +79,20 @@ function App() {
         <Route render={() => <Home />} path="/home" />
         <Route render={() => <Login />} path="/login" />
         <Route render={() => <RegisterUser />} path="/registerUser" />
-        <Route render={() => <SendEmergencyAlert />} path="/sendEmergencyAlert" />
-        <Route render={() => <ViewEmergencyAlerts />} path="/viewEmergencyAlerts" />
+        {screen !== "auth" && role === "patient" ? (
+          <Route render={() => <SendEmergencyAlert />} path="/sendEmergencyAlert" />
+        ) : (
+            <Route render={() => <Login />} path="/sendEmergencyAlert" />
+          )}
+        {screen !== "auth" && role === "nurse" ? (
+          <React.Fragment>
+            <Route render={() => <ViewEmergencyAlerts />} path="/viewEmergencyAlerts" />
+            <Route render={() => <ViewEmergencyAlert />} path="/viewEmergencyAlert" />
+          </React.Fragment>
+        ) : (
+            <Route render={() => <Login />} path="/viewEmergencyAlerts" />
+          )}
+
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
             <Route render={() => <VitalSigns />} path="/vitalSigns" />
