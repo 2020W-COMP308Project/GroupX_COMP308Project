@@ -20,6 +20,7 @@ function View(props) {
     try {
       await axios.get("/api/signout");
       setScreen("auth");
+      props.rerender();
     } catch (e) {
       console.log(e);
     }
@@ -44,28 +45,27 @@ function View(props) {
 
   return (
     <div className="container-fluid ">
-        <div className="col-12 ">
-            {user !== "y" ? (
-                <div className="App">
-                    {/* <p>{screen}</p>
+      <div className="col-12 ">
+        {user !== "y" ? (
+          <div className="App">
+            {/* <p>{screen}</p>
                     <p>{data}</p> */}
-                    <div className="btn-group margin-bottom" role="group">
-                    <button
-                        onClick={deleteCookie}
-                        className="btn btn-outline-danger margins"
-                        type="button"
-                    >
-                        Log out
-                    </button>
-                    </div>
-                </div>
-            ) : (
-                <RegisterUser screen={screen} setScreen={setScreen} />
-            )}
-        </div>
-            <List screen={screen} setScreen={setScreen} />
+            <div className="btn-group margin-bottom" role="group">
+              <button
+                onClick={deleteCookie}
+                className="btn btn-outline-danger margins"
+                type="button"
+              >
+                Log out
+              </button>
+            </div>
+          </div>
+        ) : (
+          <RegisterUser screen={screen} setScreen={setScreen} />
+        )}
+      </div>
+      <List screen={screen} setScreen={setScreen} />
     </div>
-           
   );
 }
 
