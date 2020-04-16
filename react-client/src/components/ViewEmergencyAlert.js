@@ -8,7 +8,13 @@ function ViewEmergencyAlert(props) {
     const [dataPatients, setPatientData] = useState([]);
     const apiUrlPatient = "http://localhost:3000/patients";
     // alert
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({
+        _id: "",
+        owner: "",
+        message: "",
+        created: null,
+        hasRead: false,
+    });
     const apiUrl = "http://localhost:3000/api/alert/" + props.match.params.id;
 
     // loading
@@ -21,7 +27,7 @@ function ViewEmergencyAlert(props) {
         const fetchData = async () => {
             // call patient api
             const resultPatient = await axios(apiUrlPatient);
-            console.log(resultPatient.data);
+            //            console.log(resultPatient.data);
             setPatientData(resultPatient.data);
 
             // call alert api
@@ -36,31 +42,6 @@ function ViewEmergencyAlert(props) {
         fetchData();
     }, []);
 
-
-
-    //
-    const displayEmergencyAlertTable = data.map((item, idx) => {
-        let patient = dataPatients.find(i => i._id === item.owner);
-
-        let alert = {
-            patientName: patient.firstName + " " + patient.lastName,
-            message: item.message,
-            created: String(item.created).replace('T', ' ').slice(0, 19),
-            hasRed: item.hasRead,
-        }
-
-        return (
-            <tr key={idx}
-                onClick={() => {
-                    showDetail(alert._id);
-                }}>
-                <td>{alert.created}</td>
-                <td>{alert.patientName}</td>
-                <td>{alert.message}</td>
-                <td>{alert.hasRead ? ("true") : ("false")}</td>
-            </tr>
-        );
-    })
 
     const showDetail = id => {
         props.history.push({
@@ -97,13 +78,12 @@ function ViewEmergencyAlert(props) {
                                     Date
                                 </Form.Label>
                                 <Form.Control
-                                    as="text"
+                                    type="text"
                                     rows="10"
                                     name="created"
                                     id="created"
-                                    className="textarea"
                                     value={data.created}
-                                    readonly
+                                    readOnly
                                 />
                             </Form.Group>
                             <Form.Group>
@@ -117,7 +97,7 @@ function ViewEmergencyAlert(props) {
                                     id="message"
                                     className="textarea"
                                     value={data.message}
-                                    readonly
+                                    readOnly
                                 />
                             </Form.Group>
 

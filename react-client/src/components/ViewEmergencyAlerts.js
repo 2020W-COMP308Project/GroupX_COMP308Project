@@ -40,12 +40,14 @@ function ViewEmergencyAlerts(props) {
         let patient = dataPatients.find(i => i._id === item.owner);
 
         let alert = {
+            _id: item._id,
             patientName: patient.firstName + " " + patient.lastName,
             message: item.message,
             created: String(item.created).replace('T', ' ').slice(0, 19),
             hasRed: item.hasRead,
         }
 
+        console.log("????:" + alert._id);
         return (
             <tr key={idx}
                 onClick={() => {

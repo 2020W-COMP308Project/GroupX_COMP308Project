@@ -87,7 +87,7 @@ function App() {
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
             <Route render={() => <ViewEmergencyAlerts />} path="/viewEmergencyAlerts" />
-            <Route render={() => <ViewEmergencyAlert />} path="/viewEmergencyAlert" />
+            <Route render={() => <ViewEmergencyAlert />} path="/viewEmergencyAlert/:id" />
           </React.Fragment>
         ) : (
             <Route render={() => <Login />} path="/viewEmergencyAlerts" />
