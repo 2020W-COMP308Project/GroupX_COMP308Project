@@ -3,7 +3,7 @@ import axios from "axios";
 import { Spinner } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
-function ViewEmergencyAlerts(props) {
+function EmergencyAlertHistory(props) {
     // patient list
     const [dataPatients, setPatientsData] = useState([]);
     const apiUrlPatients = "http://localhost:3000/patients";
@@ -78,9 +78,9 @@ function ViewEmergencyAlerts(props) {
                         onClick={() => {
                             showDetail(alert._id);
                         }}>
+                        <td>{alert.created}</td>
                         <td>{alert.patientName}</td>
                         <td>{alert.message}</td>
-                        <td>{alert.created}</td>
                     </tr>
                 );
             })
@@ -98,7 +98,7 @@ function ViewEmergencyAlerts(props) {
             <div className="span12 div-style">
                 <div className="bg-danger text-light title">
                     {" "}
-                    <h2 className="h2-style">Emegency Alert List</h2>
+                    <h2 className="h2-style">Emegency Alert History</h2>
                 </div>
                 <br />
 
@@ -119,9 +119,9 @@ function ViewEmergencyAlerts(props) {
                         <table className="table table-primary">
                             <thead className="thead-dark">
                                 <tr>
+                                    <th>Date</th>
                                     <th>Patient Name</th>
                                     <th>Messsage</th>
-                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody className="tr">{displayEmergencyAlertTable}</tbody>
@@ -134,4 +134,4 @@ function ViewEmergencyAlerts(props) {
 
 }
 
-export default withRouter(ViewEmergencyAlerts);
+export default withRouter(EmergencyAlertHistory);

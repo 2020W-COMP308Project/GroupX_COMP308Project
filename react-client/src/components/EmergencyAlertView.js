@@ -65,6 +65,7 @@ function EmergencyAlertView(props) {
                             There is something wrong...
                         </span>
                     )}
+
                     <Jumbotron className="bg-light">
                         <Form>
                             <Form.Group>
@@ -109,7 +110,7 @@ function EmergencyAlertView(props) {
                             </Form.Group>
 
                             <div className="text-center">
-                                <a className="btn btn-outline-danger col-6" href="/emergencyAlertList">View Alert List</a>
+                                <a className="btn btn-outline-danger col-6" href="/emergencyAlertHistory">View Alert List</a>
                             </div>
 
                         </Form>

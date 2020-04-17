@@ -14,7 +14,7 @@ import Nav from "react-bootstrap/Nav";
 import "./App.css";
 //
 
-import EmergencyAlertList from "./components/EmergencyAlertList";
+import EmergencyAlertHistory from "./components/EmergencyAlertHistory";
 import EmergencyAlertView from "./components/EmergencyAlertView";
 import DiseasePredictor from "./components/DiseasePredictor";
 import DailyInfoEdit from "./components/DailyInfoEdit";
@@ -82,8 +82,15 @@ function App() {
                   Predict Heart Disease
               </Nav.Link>
                 <Nav.Link href="/sendEmergencyAlert">Send Emergency Alert</Nav.Link>
+                <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
               </React.Fragment>
             )}
+            {screen !== "auth" && role === "nurse" && (
+              <React.Fragment>
+                <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
+              </React.Fragment>
+            )}
+
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -101,6 +108,8 @@ function App() {
               path="/vitalHistoryView/:id"
             />
             <Route render={() => <VitalEdit />} path="/vitalEdit/:id" />
+            <Route render={() => <EmergencyAlertHistory />} path="/emergencyAlertHistory" />
+            <Route render={() => <EmergencyAlertView />} path="/emergencyAlertView/:id" />
           </React.Fragment>
         ) : (
             <React.Fragment>
@@ -135,7 +144,8 @@ function App() {
               path="/predict/heartdisease"
             />
             <Route render={() => <SendEmergencyAlert />} path="/sendEmergencyAlert" />
-            <Route render={() => <EmergencyAlertList />} path="/EmergencyAlertList" />
+            <Route render={() => <EmergencyAlertHistory />} path="/emergencyAlertHistory" />
+            <Route render={() => <EmergencyAlertView />} path="/emergencyAlertView/:id" />
 
           </React.Fragment>
         ) : (
@@ -159,10 +169,6 @@ function App() {
               <Route
                 render={() => <Login rerender={updateLogin} />}
                 path="/sendEmergencyAlert"
-              />
-              <Route
-                render={() => <Login rerender={updateLogin} />}
-                path="/emergencyAlertList"
               />
 
             </React.Fragment>

@@ -29,7 +29,7 @@ function SendEmergencyAlert(props) {
           setShowError(true);
           console.log("error: " + showError);
         } else {
-          props.history.push("/emergencyAlertList");
+          props.history.push("/emergencyAlertHistory");
         }
       })
       .catch((error) => setShowLoading(false));
@@ -62,21 +62,15 @@ function SendEmergencyAlert(props) {
           )}
           <Jumbotron className="bg-light">
             <Form onSubmit={saveAlert}>
+
               <Form.Group>
                 <Form.Label className="font-weight-bold">
-                  First Responders
-              </Form.Label>
-                <Form.Control
-                  as="select"
-                  rows="10"
-                  name="message"
-                  id="message"
-                  className="select"
-                  onChange={onChange}
-                >
-                  <option value="stuff">Stuff</option>
-                  <option value="mtuff">Mtuff</option>
-                </Form.Control>
+                  Emergency Alert Sender
+                </Form.Label>
+                <br />
+                Your alert will automatically be sent to:<br />
+              - Emergency Health Service<br />
+              - Your hospital
               </Form.Group>
 
               <Form.Group>
