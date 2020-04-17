@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Spinner, Jumbotron, Form, Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
+import { Spinner, Jumbotron, Form, Button, ButtonGroup, ButtonToolbar, Dropdown } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
 function SendEmergencyAlert(props) {
 
   // initial values for an alert
   const [alert, setAlert] = useState({
-    message: "Emergency!!", // default message
+    message: "EMERGENCY!! I NEED HELP", // default message
   });
   const [showLoading, setShowLoading] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -62,6 +62,23 @@ function SendEmergencyAlert(props) {
           )}
           <Jumbotron className="bg-light">
             <Form onSubmit={saveAlert}>
+              <Form.Group>
+                <Form.Label className="font-weight-bold">
+                  First Responders
+              </Form.Label>
+                <Form.Control
+                  as="select"
+                  rows="10"
+                  name="message"
+                  id="message"
+                  className="select"
+                  onChange={onChange}
+                >
+                  <option value="stuff">Stuff</option>
+                  <option value="mtuff">Mtuff</option>
+                </Form.Control>
+              </Form.Group>
+
               <Form.Group>
                 <Form.Label className="font-weight-bold">
                   Message
