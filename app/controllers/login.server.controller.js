@@ -6,7 +6,7 @@ const getErrorMessage = function (err) {
     switch (err.code) {
       case 11000:
       case 11001:
-        message = "username already exists";
+        message = "Username already exists";
         break;
       default:
         message = "something went wrong";
