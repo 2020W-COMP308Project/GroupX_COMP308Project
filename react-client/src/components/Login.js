@@ -54,7 +54,7 @@ function App() {
   }, []); //only the first render
   //
   return (
-    <div className="container-fluid d-flex justify-content-center">
+      <div className="container-fluid d-flex justify-content-center margins">
       <div className="col-6 div-style ">
         <div className="bg-danger text-light title">
           <h2 className="text-center">User Login</h2>

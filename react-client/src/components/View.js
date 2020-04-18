@@ -46,10 +46,17 @@ function View(props) {
     <div className="container-fluid ">
         <div className="col-12 ">
             {user !== "y" ? (
-                <div className="App">
-                    {/* <p>{screen}</p>
-                    <p>{data}</p> */}
+                <div className="App margins">
+                    <p>{screen}</p>
+                    <p>{data}</p>
                     <div className="btn-group margin-bottom" role="group">
+                          {/* <button
+                              onClick={getData}
+                              className="btn btn-outline-danger margins"
+                              type="button"
+                          >
+                             Get Data
+                    </button> */}
                     <button
                         onClick={deleteCookie}
                         className="btn btn-outline-danger margins"

@@ -4,7 +4,21 @@ import {Spinner, Jumbotron, Form, Button, ButtonGroup, ButtonToolbar} from "reac
 import { withRouter } from "react-router-dom";
 
 
-function RegisterUser(props) {
+function RegisterUser(props) {  // read the info from props, coming from the ancestor component
+    const { screen, setScreen } = props;
+
+    // called when user clicks on Logout button
+    // to clear the cookie and set the screen state variable
+    // back to its initial state.
+    const deleteCookie = async () => {
+        try {
+            await axios.get("/api/signout");
+            setScreen("auth");
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    deleteCookie();
   const [user, setUser] = useState({
     _id: "",
     username: "",
@@ -54,7 +68,7 @@ function RegisterUser(props) {
   };
 
   return (
-    <div className="container-fluid  d-flex justify-content-center">
+      <div className="container-fluid  d-flex justify-content-center margins">
       <div className="col-6 div-style">
         <div className="bg-danger text-light title">
           {" "}

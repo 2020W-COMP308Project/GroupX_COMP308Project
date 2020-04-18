@@ -62,7 +62,7 @@ function VitalHistoryView(props) {
     });
 
     return (
-        <div className="container-fluid col-12 justify-content-center">
+        <div className="container-fluid col-12 justify-content-center margins">
             <div className="span12 div-style">
                 <div className="bg-danger text-light title">
                     <h2 className="h2-style">Patient Vital History</h2>
