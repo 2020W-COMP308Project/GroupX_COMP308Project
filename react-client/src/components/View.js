@@ -20,6 +20,7 @@ function View(props) {
     try {
       await axios.get("/api/signout");
       setScreen("auth");
+      props.rerender();
     } catch (e) {
       console.log(e);
     }
@@ -72,7 +73,6 @@ function View(props) {
         </div>
             <List screen={screen} setScreen={setScreen} />
     </div>
-           
   );
 }
 
