@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
 import axios from "axios";
 import {
   BrowserRouter as Router,
@@ -62,6 +63,15 @@ function App() {
   useEffect(() => {
     readCookie();
   });
+    const deleteCookie = async () => {
+        try {
+            await axios.get("/api/signout");
+            setScreen("auth");
+            setRerender(!rerender);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
   return (
     <Router>
@@ -83,6 +93,7 @@ function App() {
               </Nav.Link>
                 <Nav.Link href="/sendEmergencyAlert">Send Emergency Alert</Nav.Link>
                 <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
+                              <Button onClick={deleteCookie} variant="danger" type="button">Sign out</Button>
               </React.Fragment>
             )}
             {screen !== "auth" && role === "nurse" && (
@@ -90,7 +101,6 @@ function App() {
                 <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
               </React.Fragment>
             )}
-
           </Nav>
         </Navbar.Collapse>
       </Navbar>

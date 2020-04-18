@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 //
 import View from "./View";
-import List from "./List";
+import App from "../App"
 import { withRouter } from "react-router-dom";
 //
-function App(props) {
+function AppLogin(props) {
   //state variable for the screen, admin or user
   const [screen, setScreen] = useState("auth");
   //store input field data, user name and password
@@ -103,4 +103,4 @@ function App(props) {
   );
 }
 
-export default withRouter(App);
+export default withRouter(AppLogin);

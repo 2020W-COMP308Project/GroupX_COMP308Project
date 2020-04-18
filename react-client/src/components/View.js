@@ -8,6 +8,7 @@ import axios from "axios";
 function View(props) {
   // read the info from props, coming from the ancestor component
   const { screen, setScreen } = props;
+
   // return a stateful value and funcion to update it
   const [data, setData] = useState();
   //
@@ -21,10 +22,12 @@ function View(props) {
       await axios.get("/api/signout");
       setScreen("auth");
       props.rerender();
+
     } catch (e) {
       console.log(e);
     }
   };
+
   // called when user clicks on Get Data button
   // end-point demonstrates another example for the use
   // of cookie specific response from the server.
@@ -48,30 +51,23 @@ function View(props) {
         <div className="col-12 ">
             {user !== "y" ? (
                 <div className="App margins">
-                    <p>{screen}</p>
-                    <p>{data}</p>
+                    {/* <p>{screen}</p>
+                    <p>{data}</p> */}
                     <div className="btn-group margin-bottom" role="group">
-                          {/* <button
-                              onClick={getData}
-                              className="btn btn-outline-danger margins"
-                              type="button"
-                          >
-                             Get Data
-                    </button> */}
-                    <button
+                    {/* <button
                         onClick={deleteCookie}
                         className="btn btn-outline-danger margins"
                         type="button"
                     >
                         Log out
-                    </button>
+                    </button> */}
                     </div>
                 </div>
             ) : (
                 <RegisterUser screen={screen} setScreen={setScreen} />
             )}
         </div>
-            <List screen={screen} setScreen={setScreen} />
+         {/* <List screen={screen} setScreen={setScreen} /> */}
     </div>
   );
 }

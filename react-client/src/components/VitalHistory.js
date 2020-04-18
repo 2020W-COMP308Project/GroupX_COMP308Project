@@ -57,10 +57,9 @@ function VitalHistory(props) {
     };
 
     return (
-        <div className="container-fluid col-12 justify-content-center">
-            <div className="span12 div-style">
+        <div className="container-fluid col-12 justify-content-center margins">
+            <div className="span12 div-style p-10">
                 <div className="bg-danger text-light title">
-                {" "}
                 <h2 className="h2-style">Search Vital History</h2>
                 </div>
                 <br />

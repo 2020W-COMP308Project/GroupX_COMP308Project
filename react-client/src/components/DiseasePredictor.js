@@ -97,8 +97,8 @@ function DiseasePredictor(props) {
   };
 
   return (
-    <div className="container-fluid d-flex justify-content-center">
-      <div className="col-6 div-style">
+    <div className="container-fluid d-flex justify-content-center margins">
+      <div className="col-6 div-style p-10">
         <div className="bg-danger text-light title">
           <h2 className="h2-style">Heart Disease</h2>
         </div>
@@ -195,7 +195,7 @@ function DiseasePredictor(props) {
                 />
               </Form.Group>
               <div className="text-center">
-                <Button variant="success col-6" type="submit">
+                <Button variant="outline-danger col-6" type="submit">
                   Predict
                 </Button>
               </div>

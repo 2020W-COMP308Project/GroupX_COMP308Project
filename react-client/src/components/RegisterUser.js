@@ -71,7 +71,6 @@ function RegisterUser(props) {  // read the info from props, coming from the anc
       <div className="container-fluid  d-flex justify-content-center margins">
       <div className="col-6 div-style">
         <div className="bg-danger text-light title">
-          {" "}
           <h2 className="h2-style">User Sign up</h2>
         </div>
 
