@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 //
 import View from "./View";
-import App from "../App"
 import { withRouter } from "react-router-dom";
 //
 function AppLogin(props) {

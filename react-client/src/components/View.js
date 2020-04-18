@@ -51,23 +51,22 @@ function View(props) {
         <div className="col-12 ">
             {user !== "y" ? (
                 <div className="App margins">
-                    {/* <p>{screen}</p>
-                    <p>{data}</p> */}
+                    <p>{screen}</p>
                     <div className="btn-group margin-bottom" role="group">
-                    {/* <button
+                    <button
                         onClick={deleteCookie}
-                        className="btn btn-outline-danger margins"
+                        className="btn btn-danger margins"
                         type="button"
                     >
                         Log out
-                    </button> */}
+                    </button>
                     </div>
                 </div>
             ) : (
                 <RegisterUser screen={screen} setScreen={setScreen} />
             )}
         </div>
-         {/* <List screen={screen} setScreen={setScreen} /> */}
+         {<List screen={screen} setScreen={setScreen} /> }
     </div>
   );
 }

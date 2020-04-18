@@ -49,9 +49,11 @@ exports.welcome = function (req, res) {
     return res.send({ screen: "auth" }).end();
   }
   res.status(200).send({
-    screen: req.user._id
+    screen: req.user.username,
   });
 };
+
+
 
 exports.signout = function (req, res) {
   req.logout();
@@ -116,3 +118,60 @@ exports.listPatient = function (req, res, next) {
         }
     });
 };
+//'read' controller method to display a user
+exports.read = function (req, res) {
+    // Use the 'response' object to send a JSON response
+    res.json(req.user);
+};
+//
+// 'userByID' controller method to find a user by its id
+exports.userByID = function (req, res, next, id) {
+    // Use the 'User' static 'findOne' method to retrieve a specific user
+    User.findOne(
+        {
+            _id: id
+        },
+        (err, user) => {
+            if (err) {
+                // Call the next middleware with an error message
+                return next(err);
+            } else {
+                // Set the 'req.user' property
+                req.user = user;
+                console.log(user);
+                // Call the next middleware
+                next();
+            }
+        }
+    );
+};
+//update a user by id
+exports.update = function (req, res, next) {
+    console.log(req.body);
+    User.findByIdAndUpdate(req.user.id, req.body, function (err, user) {
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
+        res.json(user);
+    });
+};
+// delete a user by id
+exports.delete = function (req, res, next) {
+    var creatorToRemove = req.user.id;
+    User.deleteMany({ creator: creatorToRemove }, function (err, user) {
+        if (err) {
+            return res.status(400).send({
+                message: getErrorMessage(err)
+            });
+        } else {
+            console.log("!!!!!");
+            console.log(user);
+        }
+    });
+   User.findByIdAndRemove(req.user.id, req.body, function (err, user) {
+        if (err) return next(err);
+        res.json(user);
+    });
+};
+//

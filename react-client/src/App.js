@@ -29,6 +29,9 @@ import RegisterUser from "./components/RegisterUser";
 import SendEmergencyAlert from "./components/SendEmergencyAlert";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import List from "./components/List";
+import DisplayUser from "./components/DisplayUser";
+import EditUser from "./components/EditUser";
 
 //
 function App() {
@@ -63,15 +66,15 @@ function App() {
   useEffect(() => {
     readCookie();
   });
-    const deleteCookie = async () => {
-        try {
-            await axios.get("/api/signout");
-            setScreen("auth");
-            setRerender(!rerender);
-        } catch (e) {
-            console.log(e);
-        }
-    };
+    // const deleteCookie = async () => {
+    //     try {
+    //         await axios.get("/api/signout");
+    //         setScreen("auth");
+    //         setRerender(!rerender);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
 
   return (
     <Router>
@@ -93,7 +96,7 @@ function App() {
               </Nav.Link>
                 <Nav.Link href="/sendEmergencyAlert">Send Emergency Alert</Nav.Link>
                 <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
-                              <Button onClick={deleteCookie} variant="danger" type="button">Sign out</Button>
+                              {/* <Button onClick={deleteCookie} variant="danger" type="button">Sign out</Button> */}
               </React.Fragment>
             )}
             {screen !== "auth" && role === "nurse" && (
@@ -107,8 +110,12 @@ function App() {
 
       <div>
         <Route render={() => <Home />} path="/home" />
-        <Route render={() => <Login rerender={updateLogin} />} path="/login" />
+              <Route render={() => <Login />} path="/login" />
+        {/* <Route render={() => <Login rerender={updateLogin} />} path="/login" /> */}
         <Route render={() => <RegisterUser />} path="/registerUser" />
+        <Route render={() => <DisplayUser />} path="/show/:id" />
+              <Route render={() => <EditUser />} path="/edit/:id" />
+              <Route render={() => <List />} path="/list" />
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
             <Route render={() => <VitalSigns />} path="/vitalSigns" />
