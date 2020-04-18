@@ -110,8 +110,7 @@ function App() {
 
       <div>
         <Route render={() => <Home />} path="/home" />
-              <Route render={() => <Login />} path="/login" />
-        {/* <Route render={() => <Login rerender={updateLogin} />} path="/login" /> */}
+         <Route render={() => <Login rerender={updateLogin} />} path="/login" /> 
         <Route render={() => <RegisterUser />} path="/registerUser" />
         <Route render={() => <DisplayUser />} path="/show/:id" />
               <Route render={() => <EditUser />} path="/edit/:id" />
