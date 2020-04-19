@@ -104,8 +104,18 @@ function EditUser(props) {
                             />
                         </Form.Group>
                         <Form.Group>
+                            <Form.Label>Existing User Role</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="role"
+                                id="role"
+                                value={user.role}
+                                readonly="readonly"
+                            />
+                        </Form.Group>
+                        <Form.Group>
                             <ButtonToolbar aria-label="buttons for role">
-                                <Form.Label>Role</Form.Label>
+                                <Form.Label>Update User Role</Form.Label>
                                 <div className="margins-left">
                                     <ButtonGroup className="mr-4" aria-label="role" required name="role" id="role" value={user.role}>
                                         <Button variant="outline-success" name="role" id="role" onClick={e => setUserRole("nurse")} value={user.role}> Nurse</Button>

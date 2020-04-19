@@ -1,4 +1,7 @@
 const User = require("mongoose").model("User");
+const DailyInfo = require("mongoose").model("DailyInfo");
+const ClinicalVisit = require("mongoose").model("ClinicalVisit");
+const Alert = require("mongoose").model("Alert");
 
 const getErrorMessage = function (err) {
   var message = "";
@@ -167,21 +170,50 @@ exports.update = function (req, res, next) {
   });
 };
 // delete a user by id
-exports.delete = function (req, res, next) {
-  var creatorToRemove = req.user.id;
-  User.deleteMany({ creator: creatorToRemove }, function (err, user) {
-    if (err) {
-      return res.status(400).send({
-        message: getErrorMessage(err),
-      });
-    } else {
-      console.log("!!!!!");
-      console.log(user);
-    }
-  });
-  User.findByIdAndRemove(req.user.id, req.body, function (err, user) {
-    if (err) return next(err);
-    res.json(user);
-  });
-};
+// exports.delete = function (req, res, next) {
+
+//   User.findByIdAndRemove(req.user.id, req.body, function (err, user) {
+//     if (err) return next(err);
+//     res.json(user);
+//   });
+// };
 //
+// delete a user by id
+exports.delete = function (req, res, next) {
+    var ownerToRemove = req.user.id;
+    DailyInfo.deleteMany({ owner: ownerToRemove }, function (err, dailyInfo) {
+        if (err) {
+            return res.status(400).send({
+                message: getErrorMessage(err)
+            });
+        } else {
+            console.log("daily info");
+            console.log(dailyInfo);
+        }
+    });
+    ClinicalVisit.deleteMany({ owner: ownerToRemove }, function (err, clinicalVisit) {
+        if (err) {
+            return res.status(400).send({
+                message: getErrorMessage(err)
+            });
+        } else {
+            console.log("clinical visit");
+            console.log(clinicalVisit);
+        }
+    });
+    Alert.deleteMany({ owner: ownerToRemove }, function (err, alert) {
+        if (err) {
+            return res.status(400).send({
+                message: getErrorMessage(err)
+            });
+        } else {
+            console.log("alert");
+            console.log(alert);
+        }
+    });
+
+    User.findByIdAndRemove(req.user.id, req.body, function (err, user) {
+        if (err) return next(err);
+        res.json(user);
+    });
+};

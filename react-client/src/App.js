@@ -72,27 +72,37 @@ function App() {
       <Navbar bg="light" expand="lg">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link href="/registerUser">Register</Nav.Link>
-            {screen !== "auth" && role === "patient" && (
-                <React.Fragment>
-                    <Nav.Link href="/dailyInfo">Add Daily Info</Nav.Link>
-                    <Nav.Link href="/dailyInfoHistory">Daily Info History</Nav.Link>
-                    <Nav.Link href="/predict/heartdisease">Predict Heart Disease</Nav.Link>
-                    <Nav.Link href="/sendEmergencyAlert">Send Emergency Alert</Nav.Link>
-                    <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
-                </React.Fragment>
-            )}
-            {screen !== "auth" && role === "nurse" && (
-                <React.Fragment>
-                    <Nav.Link href="/vitalSigns">Add Vital Signs</Nav.Link>
-                    <Nav.Link href="/vitalHistory">Vital History</Nav.Link>
-                    <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
-                </React.Fragment>
-            )}
-          </Nav>
+                  <Nav className="mr-auto">
+                      {screen !== "auth" ? (
+                          <React.Fragment>
+                              <Nav.Link href="/home">Home</Nav.Link>
+                              <Nav.Link href="/login">Profiles</Nav.Link>
+                              <Nav.Link href="/registerUser">Logout</Nav.Link>
+                          </React.Fragment>
+                      ) : (
+                              <React.Fragment>
+                                  <Nav.Link href="/home">Home</Nav.Link>
+                                  <Nav.Link href="/login">Login</Nav.Link>
+                                  <Nav.Link href="/registerUser">Register</Nav.Link>
+                              </React.Fragment>
+                          )}
+                      {screen !== "auth" && role === "patient" && (
+                          <React.Fragment>
+                              <Nav.Link href="/dailyInfo">Add Daily Info</Nav.Link>
+                              <Nav.Link href="/dailyInfoHistory">Daily Info History</Nav.Link>
+                              <Nav.Link href="/predict/heartdisease">Predict Heart Disease</Nav.Link>
+                              <Nav.Link href="/sendEmergencyAlert">Send Emergency Alert</Nav.Link>
+                              <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
+                          </React.Fragment>
+                      )}
+                      {screen !== "auth" && role === "nurse" && (
+                          <React.Fragment>
+                              <Nav.Link href="/vitalSigns">Add Vital Signs</Nav.Link>
+                              <Nav.Link href="/vitalHistory">Vital History</Nav.Link>
+                              <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
+                          </React.Fragment>
+                      )}
+                  </Nav>
         </Navbar.Collapse>
       </Navbar>
 
