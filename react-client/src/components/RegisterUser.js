@@ -32,6 +32,7 @@ function RegisterUser(props) {  // read the info from props, coming from the anc
   });
   const [showLoading, setShowLoading] = useState(false);
     const [userRole, setUserRole] = useState();
+    const [errorMsg, setErrorMsg] = useState(false);
   const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/signup";
 
@@ -54,6 +55,7 @@ function RegisterUser(props) {  // read the info from props, coming from the anc
         setShowLoading(false);
         if (result.data.screen === "error") {
           setShowError(true);
+            setErrorMsg(result.data.message);
           console.log("error: " + showError);
         } else {
           props.history.push("/login");
@@ -82,8 +84,8 @@ function RegisterUser(props) {  // read the info from props, coming from the anc
         <div className="container-fluid margins">
           {showError && (
             <span className="p-10">
-              There is something wrong... Not able to register with given
-              information
+            {errorMsg}
+            
             </span>
           )}
           <Jumbotron className="bg-light">

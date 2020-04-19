@@ -12,7 +12,7 @@ function AppLogin(props) {
   //store input field data, user name and password
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [showLoading, setShowLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
   const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/signin";
   //send username and password to the server
@@ -23,14 +23,14 @@ function AppLogin(props) {
       //call api
       let loginData = { username, password };
       const res = await axios.post(apiUrl, loginData);
-
       //process the response
       if (res.data.screen === "error") {
-        console.log("screeen is =>" + res.data.screen);
-        //setShowError(res.data.screen);
         setShowError(true);
+          setErrorMsg(res.data.message);
       } else if (res.data.screen !== undefined) {
         setScreen(res.data.screen);
+          setShowError(false);
+       
         console.log(res.data.screen);
         props.rerender();
       }
@@ -71,7 +71,7 @@ function AppLogin(props) {
         {showError && (
           <div className="container-fluid margins bg-light">
             <span className="p-10">
-              Username does not exist. Please Check or Register.
+                {errorMsg}
             </span>
           </div>
         )}
