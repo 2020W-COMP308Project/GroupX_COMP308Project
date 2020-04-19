@@ -51,7 +51,6 @@ function View(props) {
         <div className="col-12 ">
             {user !== "y" ? (
                 <div className="App margins">
-                    <p>Welcome {screen},</p>
                     <div className="btn-group margin-bottom" role="group">
                     <button
                         onClick={deleteCookie}
