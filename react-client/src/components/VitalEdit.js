@@ -83,7 +83,7 @@ function VitalEdit(props) {
     };
 
     return (
-        <div className="container-fluid col-12 div-right">
+        <div className="container-fluid col-12 div-right margins">
             <div className="span12 div-style">
                 <div className="bg-danger text-light title">
                     <h2 className="h2-style">Add My Daily Info</h2>
