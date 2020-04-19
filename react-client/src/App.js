@@ -107,6 +107,7 @@ function App() {
       </Navbar>
 
       <div>
+        <Route render={() => <Home />} exact path="/" />
         <Route render={() => <Home />} path="/home" />
          <Route render={() => <Login rerender={updateLogin} />} path="/login" /> 
         <Route render={() => <RegisterUser />} path="/registerUser" />
