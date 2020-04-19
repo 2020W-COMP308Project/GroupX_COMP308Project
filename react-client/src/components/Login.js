@@ -84,6 +84,7 @@ function AppLogin(props) {
                 type="text"
                 onChange={(e) => setUsername(e.target.value)}
                 className="form-control"
+                              required
               />
             </div>
             <div className="form-group">
