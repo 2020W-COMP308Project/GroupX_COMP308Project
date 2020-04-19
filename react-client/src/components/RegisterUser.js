@@ -4,7 +4,21 @@ import {Spinner, Jumbotron, Form, Button, ButtonGroup, ButtonToolbar} from "reac
 import { withRouter } from "react-router-dom";
 
 
-function RegisterUser(props) {
+function RegisterUser(props) {  // read the info from props, coming from the ancestor component
+    const { screen, setScreen } = props;
+
+    // called when user clicks on Logout button
+    // to clear the cookie and set the screen state variable
+    // back to its initial state.
+    const deleteCookie = async () => {
+        try {
+            await axios.get("/api/signout");
+            setScreen("auth");
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    deleteCookie();
   const [user, setUser] = useState({
     _id: "",
     username: "",
@@ -18,6 +32,7 @@ function RegisterUser(props) {
   });
   const [showLoading, setShowLoading] = useState(false);
     const [userRole, setUserRole] = useState();
+    const [errorMsg, setErrorMsg] = useState(false);
   const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/signup";
 
@@ -40,6 +55,7 @@ function RegisterUser(props) {
         setShowLoading(false);
         if (result.data.screen === "error") {
           setShowError(true);
+            setErrorMsg(result.data.message);
           console.log("error: " + showError);
         } else {
           props.history.push("/login");
@@ -54,10 +70,9 @@ function RegisterUser(props) {
   };
 
   return (
-    <div className="container-fluid  d-flex justify-content-center">
+      <div className="container-fluid  d-flex justify-content-center margins">
       <div className="col-6 div-style">
         <div className="bg-danger text-light title">
-          {" "}
           <h2 className="h2-style">User Sign up</h2>
         </div>
 
@@ -68,9 +83,9 @@ function RegisterUser(props) {
         )}
         <div className="container-fluid margins">
           {showError && (
-            <span>
-              There is something wrong... Not able register with given
-              information
+            <span className="p-10">
+            {errorMsg}
+            
             </span>
           )}
           <Jumbotron className="bg-light">

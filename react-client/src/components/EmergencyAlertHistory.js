@@ -94,10 +94,9 @@ function EmergencyAlertHistory(props) {
     };
 
     return (
-        <div className="container-fluid col-12 justify-content-center">
-            <div className="span12 div-style">
+        <div className="container-fluid col-8 justify-content-center margins">
+            <div className="span12 div-style p-10">
                 <div className="bg-danger text-light title">
-                    {" "}
                     <h2 className="h2-style">Emegency Alert History</h2>
                 </div>
                 <br />

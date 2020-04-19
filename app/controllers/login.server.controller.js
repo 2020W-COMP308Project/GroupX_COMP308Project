@@ -6,8 +6,10 @@ const getErrorMessage = function (err) {
     switch (err.code) {
       case 11000:
       case 11001:
-        message = "username already exists";
+        message = "Username already exists";
         break;
+      case 401:
+        message = "User Doesn't Exist!";
       default:
         message = "something went wrong";
     }
@@ -49,8 +51,18 @@ exports.welcome = function (req, res) {
     return res.send({ screen: "auth" }).end();
   }
   res.status(200).send({
-    screen: req.user._id
+    screen: req.user.username,
   });
+};
+
+exports.error = function (req, res) {
+  console.log("error - no username");
+  if (!req.user) {
+    return res.status(200).send({
+      screen: "error",
+      message: "Username does not exist!",
+    });
+  }
 };
 
 exports.signout = function (req, res) {
@@ -107,12 +119,69 @@ exports.list = function (req, res, next) {
 
 // Returns all patients
 exports.listPatient = function (req, res, next) {
-    // Use the 'User' instance's 'find' method to retrieve a new user document
-    User.find({"role": "patient"}, function (err, users) {
-        if (err) {
-            return next(err);
-        } else {
-            res.json(users);
-        }
-    });
+  // Use the 'User' instance's 'find' method to retrieve a new user document
+  User.find({ role: "patient" }, function (err, users) {
+    if (err) {
+      return next(err);
+    } else {
+      res.json(users);
+    }
+  });
 };
+//'read' controller method to display a user
+exports.read = function (req, res) {
+  // Use the 'response' object to send a JSON response
+  res.json(req.user);
+};
+//
+// 'userByID' controller method to find a user by its id
+exports.userByID = function (req, res, next, id) {
+  // Use the 'User' static 'findOne' method to retrieve a specific user
+  User.findOne(
+    {
+      _id: id,
+    },
+    (err, user) => {
+      if (err) {
+        // Call the next middleware with an error message
+        return next(err);
+      } else {
+        // Set the 'req.user' property
+        req.user = user;
+        console.log(user);
+        // Call the next middleware
+        next();
+      }
+    }
+  );
+};
+//update a user by id
+exports.update = function (req, res, next) {
+  console.log(req.body);
+  User.findByIdAndUpdate(req.user.id, req.body, function (err, user) {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.json(user);
+  });
+};
+// delete a user by id
+exports.delete = function (req, res, next) {
+  var creatorToRemove = req.user.id;
+  User.deleteMany({ creator: creatorToRemove }, function (err, user) {
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err),
+      });
+    } else {
+      console.log("!!!!!");
+      console.log(user);
+    }
+  });
+  User.findByIdAndRemove(req.user.id, req.body, function (err, user) {
+    if (err) return next(err);
+    res.json(user);
+  });
+};
+//

@@ -41,10 +41,9 @@ function SendEmergencyAlert(props) {
   };
 
   return (
-    <div className="container-fluid  d-flex justify-content-center">
-      <div className="col-6 div-style">
+      <div className="container-fluid  d-flex justify-content-center margins">
+      <div className="col-6 div-style p-10">
         <div className="bg-danger text-light title">
-          {" "}
           <h2 className="h2-style">Send Emergency Alert</h2>
         </div>
 

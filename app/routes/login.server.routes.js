@@ -12,7 +12,7 @@ module.exports = function (app) {
   app.route("/api/signin").post(
     passport.authenticate("local", {
       successRedirect: "/api/welcome",
-      failureRedirect: "/",
+      failureRedirect: "/api/error",
       failureFlash: true,
     })
   );
@@ -25,7 +25,23 @@ module.exports = function (app) {
 
   // after success sign in
   app.route("/api/welcome").get(login.welcome);
+    // after error sign in
+    app.route("/api/error").get(login.error);
 
   // sign out
   app.route("/api/signout").get(login.signout);
+
+    // Set up the 'users' parameterized routes
+    app
+        .route("/users/:username")
+        .get(login.read)
+        .put(login.update)
+        .delete(login.delete);
+    // Set up the 'username' parameter middleware
+    //All param callbacks will be called before any handler of
+    //any route in which the param occurs, and they will each
+    //be called only once in a request - response cycle,
+    //even if the parameter is matched in multiple routes
+    app.param("username", login.userByID);
+
 };

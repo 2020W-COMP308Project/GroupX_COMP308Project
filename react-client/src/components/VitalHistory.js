@@ -57,10 +57,9 @@ function VitalHistory(props) {
     };
 
     return (
-        <div className="container-fluid col-12 justify-content-center">
-            <div className="span12 div-style">
+        <div className="container-fluid col-12 justify-content-center margins">
+            <div className="span12 div-style p-10">
                 <div className="bg-danger text-light title">
-                {" "}
                 <h2 className="h2-style">Search Vital History</h2>
                 </div>
                 <br />
@@ -79,7 +78,7 @@ function VitalHistory(props) {
                         There is something wrong...
                         </span>
                     )}
-                    <div className="mt-20">
+                    <div className="p-10">
                         <table className="table table-danger">
                             <thead className="thead-dark">
                             <tr>
@@ -88,7 +87,7 @@ function VitalHistory(props) {
                                 <th>Last Name</th>
                             </tr>
                             </thead>
-                            <tbody className="tr">{displayAllPatientTable}</tbody>
+                            <tbody className="tr p-10">{displayAllPatientTable}</tbody>
                         </table>
                     </div>
                 </div>

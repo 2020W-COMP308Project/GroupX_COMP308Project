@@ -1,5 +1,5 @@
 const tf = require("@tensorflow/tfjs");
-const tf_node = require("@tensorflow/tfjs-node");
+// const tf_node = require("@tensorflow/tfjs-node");
 const modelSaveLocation = "./app/ml/model/heart_disease/model.json";
 
 exports.heartDiseasePredict = async (req, res) => {

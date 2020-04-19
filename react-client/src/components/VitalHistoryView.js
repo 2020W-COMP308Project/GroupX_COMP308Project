@@ -49,7 +49,7 @@ function VitalHistoryView(props) {
                 <td>
                     <Button
                         type="button"
-                        variant="primary"
+                        variant="danger"
                         onClick={() => {
                             editVital(vital._id);
                         }}
@@ -62,8 +62,8 @@ function VitalHistoryView(props) {
     });
 
     return (
-        <div className="container-fluid col-12 justify-content-center">
-            <div className="span12 div-style">
+        <div className="container-fluid col-12 justify-content-center margins">
+            <div className="span12 div-style p-10">
                 <div className="bg-danger text-light title">
                     <h2 className="h2-style">Patient Vital History</h2>
                 </div>
@@ -75,14 +75,14 @@ function VitalHistoryView(props) {
                     </Spinner>
                 )}
 
-                <div className="container-fluid margins">
+                <div className="container-fluid margins" style="padding:20px">
                     {showError && (
                         <span>
                         There is something wrong...
                         </span>
                     )}
                     
-                    <div className="mb-20">
+                    <div className="mb-20 p-10">
                         <table className="table table-danger">
                             <thead className="thead-dark">
                             <tr>
@@ -94,7 +94,7 @@ function VitalHistoryView(props) {
                                 <th>Edit</th>
                             </tr>
                             </thead>
-                            <tbody className="tr">{displayAllVitalHistoryTable}</tbody>
+                            <tbody className="tr p-10">{displayAllVitalHistoryTable}</tbody>
                         </table>
                     </div>
                 </div>

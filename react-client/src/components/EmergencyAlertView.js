@@ -46,9 +46,8 @@ function EmergencyAlertView(props) {
     return (
 
         <div className="container-fluid  d-flex justify-content-center">
-            <div className="col-6 div-style">
+            <div className="col-6 div-style p-10">
                 <div className="bg-danger text-light title">
-                    {" "}
                     <h2 className="h2-style">Emegency Alert</h2>
                 </div>
                 <br />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
 import axios from "axios";
 import {
   BrowserRouter as Router,
@@ -28,6 +29,10 @@ import RegisterUser from "./components/RegisterUser";
 import SendEmergencyAlert from "./components/SendEmergencyAlert";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import List from "./components/List";
+import DisplayUser from "./components/DisplayUser";
+import EditUser from "./components/EditUser";
+import View from "./components/View";
 
 //
 function App() {
@@ -62,7 +67,6 @@ function App() {
   useEffect(() => {
     readCookie();
   });
-
   return (
     <Router>
       <Navbar bg="light" expand="lg">
@@ -88,15 +92,19 @@ function App() {
                     <Nav.Link href="/emergencyAlertHistory">Emergency Alert History</Nav.Link>
                 </React.Fragment>
             )}
-
           </Nav>
         </Navbar.Collapse>
       </Navbar>
 
       <div>
+        <Route render={() => <Home />} exact path="/" />
         <Route render={() => <Home />} path="/home" />
-        <Route render={() => <Login rerender={updateLogin} />} path="/login" />
+         <Route render={() => <Login rerender={updateLogin} />} path="/login" /> 
         <Route render={() => <RegisterUser />} path="/registerUser" />
+        <Route render={() => <DisplayUser />} path="/show/:id" />
+              <Route render={() => <EditUser />} path="/edit/:id" />
+              <Route render={() => <List />} path="/list" />
+              <Route render={() => <View />} path="/view" />
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
             <Route render={() => <VitalSigns />} path="/vitalSigns" />

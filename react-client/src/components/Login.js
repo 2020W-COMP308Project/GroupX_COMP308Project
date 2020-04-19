@@ -3,15 +3,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 //
 import View from "./View";
-import List from "./List";
 import { withRouter } from "react-router-dom";
+import { data } from "@tensorflow/tfjs";
 //
-function App(props) {
+function AppLogin(props) {
   //state variable for the screen, admin or user
   const [screen, setScreen] = useState("auth");
   //store input field data, user name and password
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/signin";
   //send username and password to the server
   // for initial authentication
@@ -22,8 +24,13 @@ function App(props) {
       let loginData = { username, password };
       const res = await axios.post(apiUrl, loginData);
       //process the response
-      if (res.data.screen !== undefined) {
+      if (res.data.screen === "error") {
+        setShowError(true);
+          setErrorMsg(res.data.message);
+      } else if (res.data.screen !== undefined) {
         setScreen(res.data.screen);
+          setShowError(false);
+       
         console.log(res.data.screen);
         props.rerender();
       }
@@ -56,13 +63,21 @@ function App(props) {
   }, []); //only the first render
   //
   return (
-    <div className="container-fluid d-flex justify-content-center">
+    <div className="container-fluid d-flex justify-content-center margins">
       <div className="col-6 div-style ">
         <div className="bg-danger text-light title">
           <h2 className="text-center">User Login</h2>
         </div>
+        {showError && (
+          <div className="container-fluid margins bg-light">
+            <span className="p-10">
+                {errorMsg}
+            </span>
+          </div>
+        )}
         {screen === "auth" ? (
           <div className="container-fluid margins bg-light">
+            <p>{data.value}</p>
             <div className="form-group">
               <label>User name: </label>
               <input
@@ -103,4 +118,4 @@ function App(props) {
   );
 }
 
-export default withRouter(App);
+export default withRouter(AppLogin);
