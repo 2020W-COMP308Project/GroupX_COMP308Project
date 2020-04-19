@@ -67,16 +67,6 @@ function App() {
   useEffect(() => {
     readCookie();
   });
-    // const deleteCookie = async () => {
-    //     try {
-    //         await axios.get("/api/signout");
-    //         setScreen("auth");
-    //         setRerender(!rerender);
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
-
   return (
     <Router>
       <Navbar bg="light" expand="lg">
