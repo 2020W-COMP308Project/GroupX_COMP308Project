@@ -35,13 +35,13 @@ function EmergencyAlertView(props) {
         fetchData();
     }, []);
 
-    const displayPatientName = dataPatients.map(item => {
-        if (item._id === data.owner) {
+    const displayPatientName = dataPatients
+        .filter(item => item._id === data.owner)
+        .map(item => {
             return item.firstName[0].toUpperCase() + item.firstName.slice(1)
                 + " "
                 + item.lastName[0].toUpperCase() + item.lastName.slice(1);
-        }
-    }).pop();
+        })
 
     return (
 
