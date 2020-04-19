@@ -41,7 +41,7 @@ exports.create = function (req, res) {
       //return next(err);
       return res.send({
         screen: "error",
-        message: "Not able register with given information",
+        message: "Username already exist!",
       });
     } else {
       return res.json(user);

@@ -115,7 +115,7 @@ function EmergencyAlertHistory(props) {
                     )}
 
                     <div className="mb-20">
-                        <table className="table table-danger">
+                        <table className="table table-danger pointer">
                             <thead className="thead-dark">
                                 <tr>
                                     <th>Date</th>
@@ -123,7 +123,7 @@ function EmergencyAlertHistory(props) {
                                     <th>Messsage</th>
                                 </tr>
                             </thead>
-                            <tbody className="tr">{displayEmergencyAlertTable}</tbody>
+                            <tbody className="tr pointer">{displayEmergencyAlertTable}</tbody>
                         </table>
                     </div>
                 </div>

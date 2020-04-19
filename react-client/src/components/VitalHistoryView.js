@@ -94,7 +94,7 @@ function VitalHistoryView(props) {
                                 <th>Edit</th>
                             </tr>
                             </thead>
-                            <tbody className="tr p-10">{displayAllVitalHistoryTable}</tbody>
+                            <tbody className="tr p-10 pointer">{displayAllVitalHistoryTable}</tbody>
                         </table>
                     </div>
                 </div>
