@@ -32,6 +32,7 @@ import Home from "./components/Home";
 import List from "./components/List";
 import DisplayUser from "./components/DisplayUser";
 import EditUser from "./components/EditUser";
+import View from "./components/View";
 
 //
 function App() {
@@ -115,6 +116,7 @@ function App() {
         <Route render={() => <DisplayUser />} path="/show/:id" />
               <Route render={() => <EditUser />} path="/edit/:id" />
               <Route render={() => <List />} path="/list" />
+              <Route render={() => <View />} path="/view" />
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
             <Route render={() => <VitalSigns />} path="/vitalSigns" />

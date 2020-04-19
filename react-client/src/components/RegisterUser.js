@@ -81,8 +81,8 @@ function RegisterUser(props) {  // read the info from props, coming from the anc
         )}
         <div className="container-fluid margins">
           {showError && (
-            <span>
-              There is something wrong... Not able register with given
+            <span className="p-10">
+              There is something wrong... Not able to register with given
               information
             </span>
           )}

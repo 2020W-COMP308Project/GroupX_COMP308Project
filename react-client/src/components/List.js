@@ -26,7 +26,7 @@ function List(props) {
   };
 
   return (
-    <div className="container p-10 col-6">
+    <div className="container p-10 col-12">
           <div className="span12 div-style p-10 bg-danger radius">
         <h2 className="h2-style text-center text-light">List Of Users</h2>
         {showLoading && (

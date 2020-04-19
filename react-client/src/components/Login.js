@@ -4,6 +4,7 @@ import axios from "axios";
 //
 import View from "./View";
 import { withRouter } from "react-router-dom";
+import { data } from "@tensorflow/tfjs";
 //
 function AppLogin(props) {
   //state variable for the screen, admin or user
@@ -11,6 +12,8 @@ function AppLogin(props) {
   //store input field data, user name and password
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+    const [showLoading, setShowLoading] = useState(false);
+    const [showError, setShowError] = useState(false);
   const apiUrl = "http://localhost:3000/api/signin";
   //send username and password to the server
   // for initial authentication
@@ -19,13 +22,18 @@ function AppLogin(props) {
     try {
       //call api
       let loginData = { username, password };
-      const res = await axios.post(apiUrl, loginData);
+      const res = await axios.post(apiUrl, loginData)
+
       //process the response
       if (res.data.screen !== undefined) {
         setScreen(res.data.screen);
         console.log(res.data.screen);
         props.rerender();
       }
+if(res.data.screen === 'error'){
+    console.log("screeen is =>"+res.data.screen);
+          setShowError(res.data.screen);
+}
     } catch (e) {
       //print the error
       console.log(e);
@@ -60,8 +68,14 @@ function AppLogin(props) {
         <div className="bg-danger text-light title">
           <h2 className="text-center">User Login</h2>
         </div>
+              {showError && (
+                  <span className="p-10">
+                      User does not exist.Please Register.
+                  </span>
+              )}
         {screen === "auth" ? (
           <div className="container-fluid margins bg-light">
+            <p>{data.value}</p>
             <div className="form-group">
               <label>User name: </label>
               <input

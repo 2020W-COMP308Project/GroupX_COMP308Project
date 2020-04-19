@@ -12,7 +12,7 @@ module.exports = function (app) {
   app.route("/api/signin").post(
     passport.authenticate("local", {
       successRedirect: "/api/welcome",
-      failureRedirect: "/",
+      failureRedirect: "/api/error",
       failureFlash: true,
     })
   );
@@ -25,6 +25,8 @@ module.exports = function (app) {
 
   // after success sign in
   app.route("/api/welcome").get(login.welcome);
+    // after error sign in
+    app.route("/api/error").get(login.error);
 
   // sign out
   app.route("/api/signout").get(login.signout);

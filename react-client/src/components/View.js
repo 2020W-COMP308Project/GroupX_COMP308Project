@@ -51,11 +51,11 @@ function View(props) {
         <div className="col-12 ">
             {user !== "y" ? (
                 <div className="App margins">
-                    <p>{screen}</p>
+                    {/* <p>{screen}</p> */}
                     <div className="btn-group margin-bottom" role="group">
                     <button
                         onClick={deleteCookie}
-                        className="btn btn-danger margins"
+                        className="btn btn-danger margins text-right"
                         type="button"
                     >
                         Log out

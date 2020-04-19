@@ -8,6 +8,8 @@ const getErrorMessage = function (err) {
       case 11001:
         message = "Username already exists";
         break;
+        case 401:
+        message ="User Doesn't Exist!";
       default:
         message = "something went wrong";
     }
@@ -52,7 +54,13 @@ exports.welcome = function (req, res) {
     screen: req.user.username,
   });
 };
-
+exports.error = function (req, res) {
+    if (!req.user) {
+        return res.status(401).send({
+            message: "User does not exist!",
+        });
+    }
+};
 
 
 exports.signout = function (req, res) {
