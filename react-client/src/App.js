@@ -109,20 +109,17 @@ function App() {
       <div>
         <Route render={() => <Home />} exact path="/" />
         <Route render={() => <Home />} path="/home" />
-         <Route render={() => <Login rerender={updateLogin} />} path="/login" /> 
+        <Route render={() => <Login rerender={updateLogin} />} path="/login" /> 
         <Route render={() => <RegisterUser />} path="/registerUser" />
         <Route render={() => <DisplayUser />} path="/show/:id" />
-              <Route render={() => <EditUser />} path="/edit/:id" />
-              <Route render={() => <List />} path="/list" />
-              <Route render={() => <View />} path="/view" />
+        <Route render={() => <EditUser />} path="/edit/:id" />
+        <Route render={() => <List />} path="/list" />
+        <Route render={() => <View />} path="/view" />
         {screen !== "auth" && role === "nurse" ? (
           <React.Fragment>
             <Route render={() => <VitalSigns />} path="/vitalSigns" />
             <Route render={() => <VitalHistory />} path="/vitalHistory" />
-            <Route
-              render={() => <VitalHistoryView />}
-              path="/vitalHistoryView/:id"
-            />
+            <Route render={() => <VitalHistoryView />} path="/vitalHistoryView/:id" />
             <Route render={() => <VitalEdit />} path="/vitalEdit/:id" />
             <Route render={() => <EmergencyAlertHistory />} path="/emergencyAlertHistory" />
             <Route render={() => <EmergencyAlertView />} path="/emergencyAlertView/:id" />
